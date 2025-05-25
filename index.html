@@ -160,71 +160,292 @@
             </div>
             
             <div class="about-content">
-                <div class="about-text" data-aos="fade-right">
-                    <p class="about-description">
-                        I'm a Computer Science undergraduate at BRAC University with a passion for AI, robotics, and autonomous systems. 
-                        As a core member of the Mars Rover team that ranked Top 38 globally in URC 2024, I specialize in developing 
-                        intelligent systems that bridge the gap between research and real-world applications.
-                    </p>
+                <!-- Interactive Profile Card -->
+                <div class="profile-card" data-aos="fade-right">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <div class="avatar-ring"></div>
+                            <div class="avatar-pulse"></div>
+                            <img src="assets/headshot.png" alt="Reshad Ul Karim" class="avatar-image">
+                            <div class="status-indicator">
+                                <span class="status-dot"></span>
+                                <span class="status-text">Available for opportunities</span>
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <h3 class="profile-name">Reshad Ul Karim</h3>
+                            <p class="profile-title">AI & Robotics Engineer</p>
+                            <div class="profile-badges">
+                                <span class="badge badge-primary">
+                                    <i class="fas fa-robot"></i>
+                                    Mars Rover Team
+                                </span>
+                                <span class="badge badge-secondary">
+                                    <i class="fas fa-trophy"></i>
+                                    URC 2024 Top 38
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h4>AI & Machine Learning</h4>
-                            <div class="skills">
-                                <span class="skill-tag">PyTorch</span>
-                                <span class="skill-tag">TensorFlow</span>
-                                <span class="skill-tag">YOLOv8</span>
-                                <span class="skill-tag">Computer Vision</span>
-                                <span class="skill-tag">Explainable AI</span>
+                    <div class="profile-description">
+                        <p>
+                            I'm a Computer Science undergraduate at BRAC University with a passion for AI, robotics, and autonomous systems. 
+                            As a core member of the Mars Rover team that ranked Top 38 globally in URC 2024, I specialize in developing 
+                            intelligent systems that bridge the gap between research and real-world applications.
+                        </p>
+                    </div>
+                    
+                    <!-- Interactive Stats -->
+                    <div class="profile-stats">
+                        <div class="stat-item" data-count="3.9">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">3.9</span>
+                                <span class="stat-label">CGPA</span>
                             </div>
                         </div>
-                        
-                        <div class="skill-category">
-                            <h4>Programming</h4>
-                            <div class="skills">
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">C++</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">Java</span>
-                                <span class="skill-tag">C#</span>
+                        <div class="stat-item" data-count="38">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">38</span>
+                                <span class="stat-label">Global Rank</span>
                             </div>
                         </div>
-                        
-                        <div class="skill-category">
-                            <h4>Hardware & Robotics</h4>
-                            <div class="skills">
-                                <span class="skill-tag">Arduino</span>
-                                <span class="skill-tag">Raspberry Pi</span>
-                                <span class="skill-tag">PCB Design</span>
-                                <span class="skill-tag">ROS</span>
-                                <span class="skill-tag">Microcontrollers</span>
+                        <div class="stat-item" data-count="3">
+                            <div class="stat-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">3</span>
+                                <span class="stat-label">Publications</span>
+                            </div>
+                        </div>
+                        <div class="stat-item" data-count="5">
+                            <div class="stat-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">5+</span>
+                                <span class="stat-label">Languages</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="about-visual" data-aos="fade-left">
-                    <!-- Professional Headshot -->
-                    <div class="profile-image-container">
-                        <img src="assets/headshot.png" alt="Reshad Ul Karim - Professional Headshot" class="profile-image">
-                        <div class="profile-overlay">
-                            <p>Reshad Ul Karim<br>AI & Robotics Engineer</p>
+                <!-- Interactive Skills Section -->
+                <div class="skills-section" data-aos="fade-left">
+                    <div class="skills-header">
+                        <h3>Technical Expertise</h3>
+                        <p>Hover over categories to explore my skills</p>
+                    </div>
+                    
+                    <div class="skills-container">
+                        <!-- AI & ML Skills -->
+                        <div class="skill-category-card" data-category="ai">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="category-info">
+                                    <h4>AI & Machine Learning</h4>
+                                    <span class="skill-count">8 Skills</span>
+                                </div>
+                                <div class="category-progress">
+                                                                         <div class="progress-ring">
+                                         <svg class="progress-svg" width="60" height="60">
+                                             <defs>
+                                                 <linearGradient id="gradient-ai" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                     <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                                     <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                                                 </linearGradient>
+                                             </defs>
+                                             <circle class="progress-circle-bg" cx="30" cy="30" r="25"></circle>
+                                             <circle class="progress-circle" cx="30" cy="30" r="25" data-progress="90" stroke="url(#gradient-ai)"></circle>
+                                         </svg>
+                                         <span class="progress-text">90%</span>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="skills-list">
+                                <div class="skill-item" data-level="95">
+                                    <span class="skill-name">PyTorch</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="90">
+                                    <span class="skill-name">TensorFlow</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="95">
+                                    <span class="skill-name">YOLOv8</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="88">
+                                    <span class="skill-name">Computer Vision</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 88%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="85">
+                                    <span class="skill-name">Explainable AI</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Programming Skills -->
+                        <div class="skill-category-card" data-category="programming">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="category-info">
+                                    <h4>Programming</h4>
+                                    <span class="skill-count">6 Languages</span>
+                                </div>
+                                <div class="category-progress">
+                                                                         <div class="progress-ring">
+                                         <svg class="progress-svg" width="60" height="60">
+                                             <defs>
+                                                 <linearGradient id="gradient-prog" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                     <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                                     <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                                 </linearGradient>
+                                             </defs>
+                                             <circle class="progress-circle-bg" cx="30" cy="30" r="25"></circle>
+                                             <circle class="progress-circle" cx="30" cy="30" r="25" data-progress="92" stroke="url(#gradient-prog)"></circle>
+                                         </svg>
+                                         <span class="progress-text">92%</span>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="skills-list">
+                                <div class="skill-item" data-level="98">
+                                    <span class="skill-name">Python</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 98%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="90">
+                                    <span class="skill-name">C++</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="85">
+                                    <span class="skill-name">JavaScript</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="88">
+                                    <span class="skill-name">Java</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 88%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="80">
+                                    <span class="skill-name">C#</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hardware & Robotics Skills -->
+                        <div class="skill-category-card" data-category="hardware">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <div class="category-info">
+                                    <h4>Hardware & Robotics</h4>
+                                    <span class="skill-count">7 Technologies</span>
+                                </div>
+                                <div class="category-progress">
+                                                                         <div class="progress-ring">
+                                         <svg class="progress-svg" width="60" height="60">
+                                             <defs>
+                                                 <linearGradient id="gradient-hw" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                     <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+                                                     <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                                 </linearGradient>
+                                             </defs>
+                                             <circle class="progress-circle-bg" cx="30" cy="30" r="25"></circle>
+                                             <circle class="progress-circle" cx="30" cy="30" r="25" data-progress="87" stroke="url(#gradient-hw)"></circle>
+                                         </svg>
+                                         <span class="progress-text">87%</span>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="skills-list">
+                                <div class="skill-item" data-level="92">
+                                    <span class="skill-name">Arduino</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 92%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="88">
+                                    <span class="skill-name">Raspberry Pi</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 88%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="85">
+                                    <span class="skill-name">PCB Design</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="90">
+                                    <span class="skill-name">ROS</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item" data-level="87">
+                                    <span class="skill-name">Microcontrollers</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="--width: 87%"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="education-card">
-                        <div class="card-header">
-                            <i class="fas fa-graduation-cap"></i>
-                            <h4>Education</h4>
-                        </div>
-                        <div class="education-item">
-                            <h5>BSc. Computer Science and Engineering</h5>
-                            <p>BRAC University (2022 - Present)</p>
-                            <span class="gpa">CGPA: 3.9/4.00</span>
-                        </div>
-                        <div class="achievements">
-                            <span class="achievement">Dean's List</span>
-                            <span class="achievement">Vice Chancellor's List</span>
+                    <!-- Education Card -->
+                    <div class="education-card-modern">
+                        <div class="education-header">
+                            <div class="education-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="education-content">
+                                <h4>BSc. Computer Science and Engineering</h4>
+                                <p>BRAC University (2022 - Present)</p>
+                                <div class="education-achievements">
+                                    <div class="achievement-badge">
+                                        <span class="gpa-score">3.9/4.00</span>
+                                        <span class="gpa-label">CGPA</span>
+                                    </div>
+                                    <div class="honor-badges">
+                                        <span class="honor-badge">Dean's List</span>
+                                        <span class="honor-badge">Vice Chancellor's List</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

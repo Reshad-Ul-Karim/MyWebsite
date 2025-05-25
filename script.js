@@ -22,6 +22,7 @@ function initializeWebsite() {
     initTechInteractions();
     initYouTubeModal();
     initPDFViewer();
+    initAboutInteractions();
     
     // Add event listeners
     addEventListeners();
@@ -1353,6 +1354,346 @@ function initPDFViewer() {
             zoomLevel.textContent = `${Math.round(currentScale * 100)}%`;
         }
     }
+}
+
+// ===== ABOUT ME INTERACTIVE FEATURES =====
+function initAboutInteractions() {
+    initStatCounters();
+    initSkillProgressBars();
+    initProfileCardAnimations();
+    initSkillCategoryInteractions();
+    initEducationCardInteractions();
+    initAboutScrollAnimations();
+}
+
+// ===== ANIMATED STAT COUNTERS =====
+function initStatCounters() {
+    const statItems = document.querySelectorAll('.stat-item');
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const statNumber = entry.target.querySelector('.stat-number');
+                const targetValue = entry.target.dataset.count;
+                
+                if (statNumber && targetValue && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    animateCounter(statNumber, targetValue);
+                }
+            }
+        });
+    }, observerOptions);
+    
+    statItems.forEach(item => observer.observe(item));
+}
+
+function animateCounter(element, target) {
+    const isDecimal = target.includes('.');
+    const numericTarget = parseFloat(target);
+    const duration = 2000;
+    const startTime = performance.now();
+    
+    function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentValue = numericTarget * easeOutQuart;
+        
+        if (isDecimal) {
+            element.textContent = currentValue.toFixed(1);
+        } else if (target.includes('+')) {
+            element.textContent = Math.floor(currentValue) + '+';
+        } else {
+            element.textContent = Math.floor(currentValue);
+        }
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = target;
+        }
+    }
+    
+    requestAnimationFrame(updateCounter);
+}
+
+// ===== SKILL PROGRESS BARS =====
+function initSkillProgressBars() {
+    const skillCategories = document.querySelectorAll('.skill-category-card');
+    
+    skillCategories.forEach(category => {
+        const progressCircle = category.querySelector('.progress-circle');
+        const progressText = category.querySelector('.progress-text');
+        const skillFills = category.querySelectorAll('.skill-fill');
+        
+        // Add hover event listeners
+        category.addEventListener('mouseenter', () => {
+            animateProgressCircle(progressCircle, progressText);
+            animateSkillBars(skillFills);
+        });
+        
+        category.addEventListener('mouseleave', () => {
+            resetProgressAnimations(progressCircle, skillFills);
+        });
+    });
+}
+
+function animateProgressCircle(circle, textElement) {
+    if (!circle || !textElement) return;
+    
+    const progress = parseInt(circle.dataset.progress);
+    const circumference = 2 * Math.PI * 25; // radius = 25
+    const offset = circumference - (progress / 100) * circumference;
+    
+    circle.style.strokeDashoffset = offset;
+    
+    // Animate the text
+    let currentProgress = 0;
+    const duration = 1000;
+    const startTime = performance.now();
+    
+    function updateText(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progressRatio = Math.min(elapsed / duration, 1);
+        const easeOutQuart = 1 - Math.pow(1 - progressRatio, 4);
+        
+        currentProgress = Math.floor(progress * easeOutQuart);
+        textElement.textContent = `${currentProgress}%`;
+        
+        if (progressRatio < 1) {
+            requestAnimationFrame(updateText);
+        } else {
+            textElement.textContent = `${progress}%`;
+        }
+    }
+    
+    requestAnimationFrame(updateText);
+}
+
+function animateSkillBars(skillFills) {
+    skillFills.forEach((fill, index) => {
+        setTimeout(() => {
+            fill.style.width = fill.style.getPropertyValue('--width');
+        }, index * 100);
+    });
+}
+
+function resetProgressAnimations(circle, skillFills) {
+    if (circle) {
+        circle.style.strokeDashoffset = '157';
+    }
+    
+    skillFills.forEach(fill => {
+        fill.style.width = '0';
+    });
+}
+
+// ===== PROFILE CARD ANIMATIONS =====
+function initProfileCardAnimations() {
+    const profileCard = document.querySelector('.profile-card');
+    const avatar = document.querySelector('.avatar-image');
+    const badges = document.querySelectorAll('.badge');
+    
+    if (profileCard) {
+        // Add floating animation on hover
+        profileCard.addEventListener('mouseenter', () => {
+            profileCard.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        profileCard.addEventListener('mouseleave', () => {
+            profileCard.style.transform = 'translateY(0) scale(1)';
+        });
+    }
+    
+    // Avatar click interaction
+    if (avatar) {
+        avatar.addEventListener('click', () => {
+            avatar.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => {
+                avatar.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+        });
+    }
+    
+    // Badge interactions
+    badges.forEach(badge => {
+        badge.addEventListener('click', () => {
+            badge.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 200);
+            
+            // Show tooltip or info
+            showBadgeInfo(badge);
+        });
+    });
+}
+
+function showBadgeInfo(badge) {
+    const badgeText = badge.textContent.trim();
+    let message = '';
+    
+    if (badgeText.includes('Mars Rover')) {
+        message = '🚀 Core team member of BRAC University Mars Rover Team - MONGOL TORI';
+    } else if (badgeText.includes('URC 2024')) {
+        message = '🏆 Achieved Top 38 global ranking in University Rover Challenge 2024';
+    }
+    
+    if (message) {
+        showNotification(message, 'info');
+    }
+}
+
+// ===== SKILL CATEGORY INTERACTIONS =====
+function initSkillCategoryInteractions() {
+    const skillCategories = document.querySelectorAll('.skill-category-card');
+    
+    skillCategories.forEach(category => {
+        const categoryType = category.dataset.category;
+        const skillsList = category.querySelector('.skills-list');
+        
+        // Add click to expand/collapse
+        category.addEventListener('click', (e) => {
+            // Don't trigger if clicking on skill bars
+            if (e.target.closest('.skill-item')) return;
+            
+            toggleSkillCategory(category, skillsList);
+        });
+        
+        // Add keyboard navigation
+        category.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSkillCategory(category, skillsList);
+            }
+        });
+        
+        // Make focusable
+        category.setAttribute('tabindex', '0');
+        category.setAttribute('role', 'button');
+        category.setAttribute('aria-expanded', 'false');
+    });
+}
+
+function toggleSkillCategory(category, skillsList) {
+    const isExpanded = category.classList.contains('expanded');
+    
+    // Close all other categories first
+    document.querySelectorAll('.skill-category-card.expanded').forEach(cat => {
+        if (cat !== category) {
+            cat.classList.remove('expanded');
+            cat.setAttribute('aria-expanded', 'false');
+            const otherSkillsList = cat.querySelector('.skills-list');
+            if (otherSkillsList) {
+                otherSkillsList.style.maxHeight = '0';
+                otherSkillsList.style.opacity = '0';
+            }
+        }
+    });
+    
+    // Toggle current category
+    if (isExpanded) {
+        category.classList.remove('expanded');
+        category.setAttribute('aria-expanded', 'false');
+        skillsList.style.maxHeight = '0';
+        skillsList.style.opacity = '0';
+    } else {
+        category.classList.add('expanded');
+        category.setAttribute('aria-expanded', 'true');
+        skillsList.style.maxHeight = '300px';
+        skillsList.style.opacity = '1';
+        
+        // Animate skill bars
+        const skillFills = skillsList.querySelectorAll('.skill-fill');
+        animateSkillBars(skillFills);
+        
+        // Animate progress circle
+        const progressCircle = category.querySelector('.progress-circle');
+        const progressText = category.querySelector('.progress-text');
+        animateProgressCircle(progressCircle, progressText);
+    }
+}
+
+// ===== EDUCATION CARD INTERACTIONS =====
+function initEducationCardInteractions() {
+    const educationCard = document.querySelector('.education-card-modern');
+    const achievementBadge = document.querySelector('.achievement-badge');
+    const honorBadges = document.querySelectorAll('.honor-badge');
+    
+    if (educationCard) {
+        educationCard.addEventListener('mouseenter', () => {
+            educationCard.style.transform = 'translateY(-4px) scale(1.02)';
+        });
+        
+        educationCard.addEventListener('mouseleave', () => {
+            educationCard.style.transform = 'translateY(0) scale(1)';
+        });
+    }
+    
+    if (achievementBadge) {
+        achievementBadge.addEventListener('click', () => {
+            showNotification('🎓 Maintaining excellent academic performance with 3.9/4.00 CGPA', 'success');
+        });
+    }
+    
+    honorBadges.forEach(badge => {
+        badge.addEventListener('click', () => {
+            const badgeText = badge.textContent.trim();
+            let message = '';
+            
+            if (badgeText.includes("Dean's List")) {
+                message = '🏆 Recognized for outstanding academic achievement - Dean\'s List';
+            } else if (badgeText.includes("Vice Chancellor's List")) {
+                message = '🌟 Highest academic honor - Vice Chancellor\'s List recipient';
+            }
+            
+            if (message) {
+                showNotification(message, 'success');
+            }
+        });
+    });
+}
+
+// ===== ENHANCED SCROLL ANIMATIONS FOR ABOUT SECTION =====
+function initAboutScrollAnimations() {
+    const aboutSection = document.getElementById('about');
+    if (!aboutSection) return;
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Trigger staggered animations
+                const profileCard = entry.target.querySelector('.profile-card');
+                const skillsSection = entry.target.querySelector('.skills-section');
+                
+                if (profileCard) {
+                    setTimeout(() => {
+                        profileCard.classList.add('animate-in');
+                    }, 200);
+                }
+                
+                if (skillsSection) {
+                    setTimeout(() => {
+                        skillsSection.classList.add('animate-in');
+                    }, 400);
+                }
+            }
+        });
+    }, observerOptions);
+    
+    observer.observe(aboutSection);
 }
 
 // ===== CONSOLE MESSAGE =====
