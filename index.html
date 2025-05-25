@@ -166,11 +166,8 @@
                         <div class="profile-avatar">
                             <div class="avatar-ring"></div>
                             <div class="avatar-pulse"></div>
-                            <img src="assets/headshot.png" alt="Reshad Ul Karim" class="avatar-image">
-                            <div class="status-indicator">
-                                <span class="status-dot"></span>
-                                <span class="status-text">Available for opportunities</span>
-                            </div>
+                            <img src="assets/headshot.png" alt="Reshad Ul Karim" class="avatar-image clickable-image" data-title="Reshad Ul Karim - Professional Headshot">
+
                         </div>
                         <div class="profile-info">
                             <h3 class="profile-name">Reshad Ul Karim</h3>
@@ -457,91 +454,243 @@
     <section id="experience" class="experience">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Experience</h2>
+                <h2 class="section-title">Professional Experience</h2>
                 <p class="section-subtitle">Building the future through innovation and research</p>
             </div>
             
-            <!-- Technical Work Showcase -->
-            <div class="experience-visual" data-aos="fade-up" data-aos-delay="100">
-                <div class="work-showcase">
-                    <div class="work-image-container">
-                        <img src="assets/images/pcb-design.png" alt="PCB Design for Mars Rover" class="work-image">
-                        <div class="work-overlay">
-                            <h4>PCB Design</h4>
-                            <p>High-precision electronic circuits designed for Mars Rover robotic arm control systems</p>
+            <!-- Interactive Experience Cards -->
+            <div class="experience-grid" data-aos="fade-up" data-aos-delay="100">
+                <!-- Mars Rover Team Experience -->
+                <div class="experience-card featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="experience-header">
+                        <div class="company-logo">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="experience-meta">
+                            <div class="company-info">
+                                <h3>BRAC University Mars Rover Team</h3>
+                                <span class="company-name">MONGOL TORI</span>
+                            </div>
+                            <div class="experience-duration">
+                                <span class="duration-badge current">Jan 2024 - Present</span>
+                                <span class="duration-length">1+ years</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="team-image-container">
-                        <img src="assets/images/team-photo.jpg" alt="BRAC University Mars Rover Team - MONGOL TORI" class="team-image">
-                        <div class="team-overlay">
-                            <h4>Mars Rover Team</h4>
-                            <p>BRAC University Mars Rover Team - MONGOL TORI. URC 2024 Top 38 globally out of 102 teams. Core team members working on AI, autonomous systems, and robotics.</p>
+                    
+                    <div class="role-title">
+                        <h4>Core Team Member - AI and Autonomous Systems</h4>
+                        <div class="role-tags">
+                            <span class="role-tag">AI/ML</span>
+                            <span class="role-tag">Robotics</span>
+                            <span class="role-tag">PCB Design</span>
                         </div>
                     </div>
-                    <div class="rover-image-container">
-                        <img src="assets/images/mongol-tori-phoenix.png" alt="MONGOL TORI Phoenix 9.0 Mars Rover" class="rover-image">
-                        <div class="rover-overlay">
-                            <h4>MONGOL TORI Phoenix 9.0</h4>
-                            <p>Advanced Mars Rover with sophisticated robotic arm and autonomous navigation capabilities for URC competition</p>
+                    
+                    <div class="experience-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>URC 2024 Global Finalist</h5>
+                                <p>Ranked Top 38 globally out of 102 teams</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>PCB Design & Electronics</h5>
+                                <p>Designed high-precision circuits for robotic arm control</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>AI Algorithm Optimization</h5>
+                                <p>Enhanced detection algorithms for autonomous systems</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="rover-image-container">
-                        <img src="assets/images/mongol-tori-hypersonic.png" alt="MONGOL TORI Hypersonic 10.0 Mars Rover" class="rover-image">
-                        <div class="rover-overlay">
-                            <h4>MONGOL TORI Hypersonic 10.0</h4>
-                            <p>Latest generation Mars Rover featuring enhanced AI systems, precision control, and cutting-edge autonomous technologies</p>
+                    
+                    <!-- Project Gallery -->
+                    <div class="project-gallery">
+                        <div class="gallery-item">
+                            <img src="assets/images/mongol-tori-phoenix.png" alt="MONGOL TORI Phoenix 9.0" class="gallery-image clickable-image" data-title="MONGOL TORI Phoenix 9.0">
+                            <div class="gallery-label">Phoenix 9.0</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/images/mongol-tori-hypersonic.png" alt="MONGOL TORI Hypersonic 10.0" class="gallery-image clickable-image" data-title="MONGOL TORI Hypersonic 10.0">
+                            <div class="gallery-label">Hypersonic 10.0</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/images/pcb-design.png" alt="PCB Design" class="gallery-image clickable-image" data-title="PCB Design">
+                            <div class="gallery-label">PCB Design</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/images/team-photo.jpg" alt="Mars Rover Team Photo" class="gallery-image clickable-image" data-title="Mars Rover Team Photo">
+                            <div class="gallery-label">Team Photo</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teaching Assistant Experience -->
+                <div class="experience-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="experience-header">
+                        <div class="company-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="experience-meta">
+                            <div class="company-info">
+                                <h3>BRAC University</h3>
+                                <span class="company-name">Computer Science Department</span>
+                            </div>
+                            <div class="experience-duration">
+                                <span class="duration-badge current">Feb 2025 - Present</span>
+                                <span class="duration-length">Current</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="role-title">
+                        <h4>Undergraduate Teaching Assistant</h4>
+                        <div class="role-tags">
+                            <span class="role-tag">Teaching</span>
+                            <span class="role-tag">Mentoring</span>
+                            <span class="role-tag">Academia</span>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>Student Support</h5>
+                                <p>Supporting 120+ students across 3 sections</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>Academic Assessment</h5>
+                                <p>Grading assignments, quizzes, and lab work</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>Faculty Collaboration</h5>
+                                <p>Working with faculty to improve course delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rescue Rover Experience -->
+                <div class="experience-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="experience-header">
+                        <div class="company-logo">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="experience-meta">
+                            <div class="company-info">
+                                <h3>BRAC University Rescue Rover</h3>
+                                <span class="company-name">BRACU DICHARI</span>
+                            </div>
+                            <div class="experience-duration">
+                                <span class="duration-badge past">Nov 2022 - Dec 2023</span>
+                                <span class="duration-length">1 year 2 months</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="role-title">
+                        <h4>Contributor - Electronics and Communications</h4>
+                        <div class="role-tags">
+                            <span class="role-tag">Electronics</span>
+                            <span class="role-tag">ROS</span>
+                            <span class="role-tag">Communications</span>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>Electronics Integration</h5>
+                                <p>Integrated basic electronics circuitry for rescue rovers</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-satellite-dish"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>Communication Systems</h5>
+                                <p>Implemented rover-to-base station communication</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h5>ROS Programming</h5>
+                                <p>Programmed microcontrollers using ROS framework</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="timeline">
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Core Team Member - AI and Autonomous Systems</h3>
-                            <span class="timeline-date">Jan 2024 - Present</span>
-                        </div>
-                        <h4>BRAC University Mars Rover Team - MONGOL TORI</h4>
-                        <ul class="timeline-achievements">
-                            <li>🏆 URC 2024 Finalist - Ranked Top 38 globally out of 102 teams</li>
-                            <li>🔧 Designed high-precision electronic circuits and PCBs for robotic arm</li>
-                            <li>🤖 Optimized AI algorithms for mallet and bottle detection with high accuracy</li>
-                            <li>🎯 Developed autonomous typing test guidance AI prototype</li>
-                        </ul>
+            <!-- Experience Stats -->
+            <div class="experience-stats" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h4>3+</h4>
+                        <p>Years Experience</p>
                     </div>
                 </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Undergraduate Teaching Assistant</h3>
-                            <span class="timeline-date">Feb 2025 - Present</span>
-                        </div>
-                        <h4>BRAC University</h4>
-                        <ul class="timeline-achievements">
-                            <li>📚 Supporting 120+ students across 3 sections with tutorials and guidance</li>
-                            <li>📝 Assisting in grading assignments, quizzes, and labs</li>
-                            <li>🤝 Collaborating with faculty to improve course delivery</li>
-                        </ul>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h4>15+</h4>
+                        <p>Projects Completed</p>
                     </div>
                 </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Contributor - Electronics and Communications</h3>
-                            <span class="timeline-date">Nov 2022 - Dec 2023</span>
-                        </div>
-                        <h4>BRAC University Rescue Rover - BRACU DICHARI</h4>
-                        <ul class="timeline-achievements">
-                            <li>⚡ Integrated basic electronics circuitry for rescue rovers</li>
-                            <li>📡 Implemented rover-to-base station communication systems</li>
-                            <li>🔧 Programmed microcontrollers using ROS framework</li>
-                        </ul>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h4>120+</h4>
+                        <p>Students Mentored</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h4>Top 38</h4>
+                        <p>Global Ranking</p>
                     </div>
                 </div>
             </div>
@@ -595,14 +744,14 @@
                 <div class="cultural-gallery" data-aos="fade-left">
                     <div class="gallery-grid">
                         <div class="gallery-item">
-                            <img src="assets/images/singing-performance-1.jpg" alt="Reshad performing at cultural event" class="gallery-image">
+                            <img src="assets/images/singing-performance-1.jpg" alt="Reshad performing at cultural event" class="gallery-image clickable-image" data-title="Cultural Performance">
                             <div class="gallery-overlay">
                                 <h5>Cultural Performance</h5>
                                 <p>Leading by example in cultural events</p>
                             </div>
                         </div>
                         <div class="gallery-item">
-                            <img src="assets/images/singing-performance-2.jpg" alt="Reshad at cultural event" class="gallery-image">
+                            <img src="assets/images/singing-performance-2.jpg" alt="Reshad at cultural event" class="gallery-image clickable-image" data-title="Event Leadership">
                             <div class="gallery-overlay">
                                 <h5>Event Leadership</h5>
                                 <p>Organizing and participating in cultural activities</p>
@@ -758,125 +907,313 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">Research & Publications</h2>
-                <p class="section-subtitle">Contributing to the advancement of AI and healthcare technology</p>
+                <p class="section-subtitle">Advancing AI and healthcare technology through innovative research</p>
             </div>
             
-            <div class="research-content">
-                <div class="research-stats" data-aos="fade-right">
-                    <div class="stat-card">
-                        <div class="stat-icon">
+            <!-- Research Overview -->
+            <div class="research-overview" data-aos="fade-up" data-aos-delay="100">
+                <div class="research-metrics">
+                    <div class="metric-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="metric-icon">
                             <i class="fas fa-file-alt"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>3</h3>
-                            <p>IEEE Publications</p>
+                        <div class="metric-content">
+                            <h3 class="metric-number">3</h3>
+                            <p class="metric-label">IEEE Publications</p>
+                            <span class="metric-description">Peer-reviewed research papers</span>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
+                    <div class="metric-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="metric-icon">
                             <i class="fas fa-award"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>3.9</h3>
-                            <p>Impact Factor</p>
+                        <div class="metric-content">
+                            <h3 class="metric-number">3.9</h3>
+                            <p class="metric-label">Impact Factor</p>
+                            <span class="metric-description">IEEE Access journal rating</span>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
+                    <div class="metric-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="metric-icon">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>AI/ML</h3>
-                            <p>Research Focus</p>
+                        <div class="metric-content">
+                            <h3 class="metric-number">AI/ML</h3>
+                            <p class="metric-label">Research Focus</p>
+                            <span class="metric-description">Explainable AI & Healthcare</span>
+                        </div>
+                    </div>
+                    <div class="metric-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="metric-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-number">2024</h3>
+                            <p class="metric-label">Active Since</p>
+                            <span class="metric-description">Continuous research output</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Areas -->
+            <div class="research-areas" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="research-areas-title">Research Areas</h3>
+                <div class="research-areas-grid">
+                    <div class="research-area-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="area-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>Explainable AI</h4>
+                        <p>Developing interpretable machine learning models for healthcare applications</p>
+                        <div class="area-technologies">
+                            <span class="tech-badge">SHAP</span>
+                            <span class="tech-badge">LIME</span>
+                            <span class="tech-badge">XAI</span>
+                        </div>
+                    </div>
+                    <div class="research-area-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="area-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h4>Healthcare AI</h4>
+                        <p>Machine learning solutions for medical diagnosis and monitoring</p>
+                        <div class="area-technologies">
+                            <span class="tech-badge">Sleep Analysis</span>
+                            <span class="tech-badge">Stroke Detection</span>
+                            <span class="tech-badge">PPG Signals</span>
+                        </div>
+                    </div>
+                    <div class="research-area-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="area-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Computer Vision</h4>
+                        <p>Advanced image processing and facial landmark analysis techniques</p>
+                        <div class="area-technologies">
+                            <span class="tech-badge">MediaPipe</span>
+                            <span class="tech-badge">OpenCV</span>
+                            <span class="tech-badge">Deep Learning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Publications Timeline -->
+            <div class="publications-timeline" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="timeline-title">Publication Timeline</h3>
+                
+                <!-- Journal Publication -->
+                <div class="publication-item featured" data-aos="fade-up" data-aos-delay="400">
+                    <div class="publication-header">
+                        <div class="publication-type-badge journal">
+                            <i class="fas fa-journal-whills"></i>
+                            <span>Journal Publication</span>
+                        </div>
+                        <div class="publication-date">March 12, 2025</div>
+                    </div>
+                    
+                    <div class="publication-content">
+                        <h4 class="publication-title">Optimizing Stroke Recognition with MediaPipe and Machine Learning: An Explainable AI Approach for Facial Landmark Analysis</h4>
+                        
+                        <div class="publication-details">
+                            <div class="venue-info">
+                                <i class="fas fa-building"></i>
+                                <span class="venue-name">IEEE Access</span>
+                                <span class="impact-factor">Impact Factor: 3.9</span>
+                            </div>
+                            <div class="doi-info">
+                                <i class="fas fa-link"></i>
+                                <span>DOI: 10.1109/ACCESS.2025.3550577</span>
+                            </div>
+                        </div>
+                        
+                        <div class="publication-abstract">
+                            <p>This research presents a novel approach to stroke recognition using MediaPipe for facial landmark detection combined with explainable AI techniques. The study demonstrates significant improvements in early stroke detection accuracy while maintaining model interpretability for healthcare professionals.</p>
+                        </div>
+                        
+                        <div class="publication-tags">
+                            <span class="research-tag primary">Stroke Detection</span>
+                            <span class="research-tag secondary">MediaPipe</span>
+                            <span class="research-tag accent">Explainable AI</span>
+                            <span class="research-tag neutral">Healthcare</span>
+                        </div>
+                        
+                        <div class="publication-actions">
+                            <a href="https://doi.org/10.1109/ACCESS.2025.3550577" class="action-btn primary" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Read Paper</span>
+                            </a>
+                            <a href="https://github.com/Reshad-Ul-Karim/Human-Analytics-Project" class="action-btn secondary" target="_blank">
+                                <i class="fab fa-github"></i>
+                                <span>View Code</span>
+                            </a>
+                            <button class="action-btn tertiary" onclick="navigator.clipboard.writeText('10.1109/ACCESS.2025.3550577')">
+                                <i class="fas fa-copy"></i>
+                                <span>Copy DOI</span>
+                            </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="publications" data-aos="fade-left">
-                    <div class="publication-card">
-                        <div class="publication-type">Journal Publication</div>
-                        <h4>Optimizing Stroke Recognition with MediaPipe and Machine Learning: An Explainable AI Approach for Facial Landmark Analysis</h4>
-                        <p class="publication-venue">IEEE Access | March 12, 2025</p>
-                        <div class="publication-tags">
-                            <span class="tag">Stroke Detection</span>
-                            <span class="tag">MediaPipe</span>
-                            <span class="tag">Explainable AI</span>
+                <!-- Conference Publications -->
+                <div class="publication-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="publication-header">
+                        <div class="publication-type-badge conference">
+                            <i class="fas fa-users"></i>
+                            <span>Conference Publication</span>
                         </div>
-                        <a href="https://doi.org/10.1109/ACCESS.2025.3550577" class="publication-link" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> View Paper
-                        </a>
+                        <div class="publication-date">March 3, 2025</div>
                     </div>
                     
-                    <div class="publication-card">
-                        <div class="publication-type">Conference Publication</div>
-                        <h4>Improved Photoplethysmography-Based Four-Stage Sleep Classification with Explainable AI-Driven Machine Learning</h4>
-                        <p class="publication-venue">IEEE ICEACE 2024 | March 3, 2025</p>
+                    <div class="publication-content">
+                        <h4 class="publication-title">Improved Photoplethysmography-Based Four-Stage Sleep Classification with Explainable AI-Driven Machine Learning</h4>
                         
-                        <!-- YouTube Video Preview -->
-                        <div class="publication-video">
-                            <div class="youtube-preview" data-video-id="nAP8e5IfGZI">
-                                <img src="https://img.youtube.com/vi/nAP8e5IfGZI/maxresdefault.jpg" alt="XAI Sleep Classification Research Presentation" class="youtube-thumbnail">
-                                <div class="youtube-play-button">
+                        <div class="publication-details">
+                            <div class="venue-info">
+                                <i class="fas fa-building"></i>
+                                <span class="venue-name">IEEE ICEACE 2024</span>
+                                <span class="conference-location">Dhaka, Bangladesh</span>
+                            </div>
+                            <div class="doi-info">
+                                <i class="fas fa-link"></i>
+                                <span>DOI: 10.1109/ICEACE63551.2024.10898853</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Research Presentation Video -->
+                        <div class="publication-media">
+                            <div class="media-preview" data-video-id="nAP8e5IfGZI">
+                                <img src="https://img.youtube.com/vi/nAP8e5IfGZI/maxresdefault.jpg" alt="XAI Sleep Classification Research Presentation" class="media-thumbnail">
+                                <div class="media-play-button">
                                     <i class="fab fa-youtube"></i>
                                 </div>
-                                <div class="youtube-overlay">
-                                    <span class="youtube-duration">Research Presentation</span>
+                                <div class="media-overlay">
+                                    <span class="media-duration">Research Presentation</span>
+                                    <span class="media-type">Conference Talk</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="publication-tags">
-                            <span class="tag">Sleep Classification</span>
-                            <span class="tag">XAI</span>
-                            <span class="tag">Healthcare</span>
+                        <div class="publication-abstract">
+                            <p>This study introduces an enhanced approach to sleep stage classification using photoplethysmography signals, incorporating explainable AI techniques to improve model interpretability and clinical applicability.</p>
                         </div>
+                        
+                        <div class="publication-tags">
+                            <span class="research-tag primary">Sleep Classification</span>
+                            <span class="research-tag secondary">XAI</span>
+                            <span class="research-tag accent">Healthcare</span>
+                            <span class="research-tag neutral">PPG Signals</span>
+                        </div>
+                        
                         <div class="publication-actions">
-                            <a href="https://doi.org/10.1109/ICEACE63551.2024.10898853" class="publication-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> IEEE Xplore
+                            <a href="https://doi.org/10.1109/ICEACE63551.2024.10898853" class="action-btn primary" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>IEEE Xplore</span>
                             </a>
-                            <button class="publication-link pdf-viewer-btn" data-pdf="assets/papers/xai-sleep-classification.pdf" data-title="XAI Sleep Classification Paper">
-                                <i class="fas fa-file-pdf"></i> View PDF
+                            <button class="action-btn secondary pdf-viewer-btn" data-pdf="assets/papers/xai-sleep-classification.pdf" data-title="XAI Sleep Classification Paper">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>View PDF</span>
                             </button>
-                            <button class="publication-link youtube-modal-btn" data-video-id="nAP8e5IfGZI">
-                                <i class="fab fa-youtube"></i> Watch Presentation
+                            <button class="action-btn tertiary youtube-modal-btn" data-video-id="nAP8e5IfGZI">
+                                <i class="fab fa-youtube"></i>
+                                <span>Watch Talk</span>
                             </button>
                         </div>
                     </div>
+                </div>
+                
+                <div class="publication-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="publication-header">
+                        <div class="publication-type-badge conference">
+                            <i class="fas fa-users"></i>
+                            <span>Conference Publication</span>
+                        </div>
+                        <div class="publication-date">March 3, 2025</div>
+                    </div>
                     
-                    <div class="publication-card">
-                        <div class="publication-type">Conference Publication</div>
-                        <h4>Machine Learning Approaches in Photoplethysmography-Based Sleep Stage Classification</h4>
-                        <p class="publication-venue">IEEE ICEACE 2024 | March 3, 2025</p>
+                    <div class="publication-content">
+                        <h4 class="publication-title">Machine Learning Approaches in Photoplethysmography-Based Sleep Stage Classification</h4>
                         
-                        <!-- YouTube Video Preview -->
-                        <div class="publication-video">
-                            <div class="youtube-preview" data-video-id="FfUJttHAkyk">
-                                <img src="https://img.youtube.com/vi/FfUJttHAkyk/maxresdefault.jpg" alt="Machine Learning Sleep Classification Research Presentation" class="youtube-thumbnail">
-                                <div class="youtube-play-button">
+                        <div class="publication-details">
+                            <div class="venue-info">
+                                <i class="fas fa-building"></i>
+                                <span class="venue-name">IEEE ICEACE 2024</span>
+                                <span class="conference-location">Dhaka, Bangladesh</span>
+                            </div>
+                            <div class="doi-info">
+                                <i class="fas fa-link"></i>
+                                <span>DOI: 10.1109/ICEACE63551.2024.10898858</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Research Presentation Video -->
+                        <div class="publication-media">
+                            <div class="media-preview" data-video-id="FfUJttHAkyk">
+                                <img src="https://img.youtube.com/vi/FfUJttHAkyk/maxresdefault.jpg" alt="Machine Learning Sleep Classification Research Presentation" class="media-thumbnail">
+                                <div class="media-play-button">
                                     <i class="fab fa-youtube"></i>
                                 </div>
-                                <div class="youtube-overlay">
-                                    <span class="youtube-duration">Research Presentation</span>
+                                <div class="media-overlay">
+                                    <span class="media-duration">Research Presentation</span>
+                                    <span class="media-type">Conference Talk</span>
                                 </div>
                             </div>
                         </div>
                         
+                        <div class="publication-abstract">
+                            <p>A comprehensive study exploring various machine learning algorithms for sleep stage classification using photoplethysmography signals, with focus on accuracy and computational efficiency.</p>
+                        </div>
+                        
                         <div class="publication-tags">
-                            <span class="tag">Sleep Classification</span>
-                            <span class="tag">Machine Learning</span>
-                            <span class="tag">PPG Signals</span>
+                            <span class="research-tag primary">Sleep Classification</span>
+                            <span class="research-tag secondary">Machine Learning</span>
+                            <span class="research-tag accent">PPG Signals</span>
+                            <span class="research-tag neutral">Signal Processing</span>
                         </div>
+                        
                         <div class="publication-actions">
-                            <a href="https://doi.org/10.1109/ICEACE63551.2024.10898858" class="publication-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> IEEE Xplore
+                            <a href="https://doi.org/10.1109/ICEACE63551.2024.10898858" class="action-btn primary" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>IEEE Xplore</span>
                             </a>
-                            <button class="publication-link pdf-viewer-btn" data-pdf="assets/papers/sleep-classification.pdf" data-title="Sleep Classification Paper">
-                                <i class="fas fa-file-pdf"></i> View PDF
+                            <button class="action-btn secondary pdf-viewer-btn" data-pdf="assets/papers/sleep-classification.pdf" data-title="Sleep Classification Paper">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>View PDF</span>
                             </button>
-                            <button class="publication-link youtube-modal-btn" data-video-id="FfUJttHAkyk">
-                                <i class="fab fa-youtube"></i> Watch Presentation
+                            <button class="action-btn tertiary youtube-modal-btn" data-video-id="FfUJttHAkyk">
+                                <i class="fab fa-youtube"></i>
+                                <span>Watch Talk</span>
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Research Impact -->
+            <div class="research-impact" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="impact-title">Research Impact</h3>
+                <div class="impact-grid">
+                    <div class="impact-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="impact-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <h4>Citations & Recognition</h4>
+                        <p>Research work gaining recognition in the academic community with growing citation count and peer acknowledgment.</p>
+                    </div>
+                    <div class="impact-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="impact-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <h4>Healthcare Applications</h4>
+                        <p>Practical implementations in healthcare settings, contributing to improved patient diagnosis and monitoring.</p>
+                    </div>
+                    <div class="impact-card" data-aos="fade-up" data-aos-delay="700">
+                        <div class="impact-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h4>Open Source Contribution</h4>
+                        <p>Making research code and datasets available to the community for further development and validation.</p>
                     </div>
                 </div>
             </div>
@@ -954,6 +1291,38 @@
             <button class="youtube-modal-close">&times;</button>
             <div class="youtube-video-container">
                 <iframe id="youtube-iframe" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="image-modal" class="image-modal">
+        <div class="image-modal-content">
+            <button class="image-modal-close">&times;</button>
+            <div class="image-modal-header">
+                <h3 id="image-title">Image Preview</h3>
+                <div class="image-controls">
+                    <button id="image-zoom-out" class="image-control-btn" title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span id="image-zoom-level">100%</span>
+                    <button id="image-zoom-in" class="image-control-btn" title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button id="image-fullscreen" class="image-control-btn" title="Fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button id="image-download" class="image-control-btn" title="Download Image">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="image-viewer-container">
+                <div id="image-loading" class="image-loading">
+                    <div class="image-spinner"></div>
+                    <p>Loading image...</p>
+                </div>
+                <img id="modal-image" src="" alt="" class="modal-image">
             </div>
         </div>
     </div>
