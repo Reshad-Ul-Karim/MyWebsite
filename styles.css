@@ -323,6 +323,8 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .btn {
@@ -4263,6 +4265,11 @@ section {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+    max-width: 100%;
+  }
+  
   section {
     margin-bottom: 0.5rem;
   }
@@ -4270,6 +4277,7 @@ section {
   .hero {
     padding: clamp(1.5rem, 8vw, 3rem) 0;
     min-height: 90vh;
+    overflow-x: hidden;
   }
   
   .about,
@@ -4334,8 +4342,49 @@ section {
   
   /* Hero Section Mobile */
   .hero-content {
+    grid-template-columns: 1fr;
     gap: 2rem;
     padding: 0 1rem;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  .hero-text {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .hero-title .gradient-text {
+    display: inline-block;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-description {
+    font-size: clamp(1rem, 3.5vw, 1.125rem);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 100%;
   }
   
   .hero-stats {
@@ -4351,12 +4400,20 @@ section {
   .hero-buttons {
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .hero-image {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
   
   .image-container {
     width: 280px;
     height: 280px;
     border-radius: 16px;
+    margin: 0 auto;
   }
   
   .floating-icon {
@@ -5428,24 +5485,47 @@ section {
   }
   
   .hero-content {
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: 0 0.25rem;
+    text-align: center;
+    justify-items: center;
+  }
+  
+  .hero-text {
+    width: 100%;
+    max-width: 100%;
   }
   
   .hero-title {
     font-size: clamp(1.75rem, 7vw, 2rem);
+    line-height: 1.1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .hero-title .gradient-text {
+    display: inline-block;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .hero-subtitle {
     font-size: clamp(1rem, 3.5vw, 1.125rem);
+    line-height: 1.3;
   }
   
   .hero-description {
     font-size: 0.9rem;
+    line-height: 1.4;
   }
   
   .hero-stats {
     gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   
   .stat-number {
