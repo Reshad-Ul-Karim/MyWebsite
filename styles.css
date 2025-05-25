@@ -1044,6 +1044,24 @@ section {
   opacity: 1;
 }
 
+.team-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.team-image-container:hover .team-image {
+  transform: scale(1.05);
+}
+
+.team-overlay h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
 /* ===== WORK SHOWCASE ===== */
 .work-showcase {
   display: grid;
@@ -2054,6 +2072,72 @@ section {
   color: var(--primary-dark);
 }
 
+/* ===== PUBLICATION VIDEO ===== */
+.publication-video {
+  margin: 1rem 0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+}
+
+.publication-video .youtube-preview {
+  height: 200px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.publication-video .youtube-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-medium);
+}
+
+.publication-video .youtube-preview:hover .youtube-thumbnail {
+  transform: scale(1.05);
+}
+
+.publication-video .youtube-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 0, 0, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+  transition: all var(--transition-medium);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+}
+
+.publication-video .youtube-preview:hover .youtube-play-button {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+.publication-video .youtube-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 0.75rem;
+  color: white;
+}
+
+.publication-video .youtube-duration {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* ===== CONTACT SECTION ===== */
 .contact {
   padding: clamp(3rem, 8vw, 6rem) 0;
@@ -2535,6 +2619,17 @@ section {
     justify-content: center;
   }
 
+  /* Publication Video Mobile */
+  .publication-video .youtube-preview {
+    height: 150px;
+  }
+
+  .publication-video .youtube-play-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
   /* Education Card Mobile */
   .education-card {
     padding: 1.5rem;
@@ -2919,6 +3014,17 @@ section {
   .tag {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
+  }
+
+  /* Publication Video Small Mobile */
+  .publication-video .youtube-preview {
+    height: 120px;
+  }
+
+  .publication-video .youtube-play-button {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
   }
   
   /* Contact Mobile Small */
