@@ -1167,11 +1167,12 @@ section {
 .rover-image {
   width: 100%;
   height: 250px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   transition: transform 0.3s ease;
-  padding: 0;
-  border-radius: 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .rover-image-container:hover .rover-image {
@@ -3074,7 +3075,7 @@ section {
 
   .rover-image {
     height: 200px;
-    padding: 0;
+    padding: 0.75rem;
   }
 
   /* Cultural Section Mobile */
@@ -3531,7 +3532,7 @@ section {
   }
 
   .rover-image {
-    padding: 0;
+    padding: 0.5rem;
   }
 
   /* Cultural Section Small Mobile */
