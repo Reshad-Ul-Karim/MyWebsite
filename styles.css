@@ -986,8 +986,8 @@ section {
 
 .team-image-container {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 450px;
+  height: 300px;
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-large);
@@ -2457,8 +2457,8 @@ section {
   
   /* Team Image Mobile */
   .team-image-container {
-    width: 280px;
-    height: 180px;
+    width: 380px;
+    height: 250px;
   }
   
   .team-placeholder {
@@ -2828,8 +2828,8 @@ section {
   
   /* Team Image Mobile Small */
   .team-image-container {
-    width: 250px;
-    height: 160px;
+    width: 320px;
+    height: 210px;
   }
   
   .team-placeholder {
