@@ -128,7 +128,7 @@
 }
 
 /* ===== DARK MODE LOVE SECTION ===== */
-[data-theme="dark"] .love-card {
+[data-theme="dark"] .love-story-card {
   background: var(--bg-primary);
   border: 1px solid rgba(255, 105, 180, 0.3);
 }
@@ -137,21 +137,38 @@
   color: var(--text-secondary);
 }
 
-[data-theme="dark"] .love-stat {
+[data-theme="dark"] .love-stat-card {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 105, 180, 0.3);
 }
 
-[data-theme="dark"] .love-stat:hover {
+[data-theme="dark"] .love-stat-card:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
-[data-theme="dark"] .love-quote {
+[data-theme="dark"] .photo-card {
+  background: var(--bg-primary);
+  border: 1px solid rgba(255, 105, 180, 0.2);
+}
+
+[data-theme="dark"] .photo-caption {
+  background: rgba(255, 105, 180, 0.1);
+}
+
+[data-theme="dark"] .photo-caption h4 {
+  color: #ff69b4;
+}
+
+[data-theme="dark"] .photo-caption p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .love-quote-card {
   background: var(--bg-primary);
   border: 1px solid rgba(255, 105, 180, 0.3);
 }
 
-[data-theme="dark"] .quote-content p {
+[data-theme="dark"] .quote-text {
   color: var(--text-secondary);
 }
 
@@ -1167,12 +1184,11 @@ section {
 .rover-image {
   width: 100%;
   height: 250px;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   transition: transform 0.3s ease;
-  padding: 1rem;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0;
+  border-radius: 0;
 }
 
 .rover-image-container:hover .rover-image {
@@ -1465,7 +1481,7 @@ section {
   align-items: start;
 }
 
-.love-card {
+.love-story-card {
   background: var(--bg-primary);
   padding: 2.5rem;
   border-radius: var(--border-radius);
@@ -1473,9 +1489,15 @@ section {
   border: 1px solid rgba(255, 105, 180, 0.2);
   position: relative;
   overflow: hidden;
+  transition: all var(--transition-medium);
 }
 
-.love-card::before {
+.love-story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(255, 20, 147, 0.15);
+}
+
+.love-story-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -1547,87 +1569,158 @@ section {
   margin-bottom: 1rem;
 }
 
-.love-stats {
+.love-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   position: relative;
   z-index: 2;
+  margin-top: 2rem;
 }
 
-.love-stat {
+.love-stat-card {
   text-align: center;
   padding: 1.5rem 1rem;
   background: rgba(255, 255, 255, 0.5);
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 105, 180, 0.2);
   transition: all var(--transition-medium);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.love-stat:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(255, 20, 147, 0.2);
-  background: rgba(255, 255, 255, 0.8);
+.love-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.1), transparent);
+  transition: left 0.5s ease;
 }
 
-.love-stat .stat-icon {
-  width: 40px;
-  height: 40px;
+.love-stat-card:hover::before {
+  left: 100%;
+}
+
+.love-stat-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(255, 20, 147, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 105, 180, 0.4);
+}
+
+.love-stat-card .stat-icon {
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #ff1493, #ff69b4);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.125rem;
-  margin: 0 auto 0.75rem;
+  font-size: 1.25rem;
+  margin: 0 auto 1rem;
+  transition: all var(--transition-medium);
+  position: relative;
+  z-index: 2;
 }
 
-.love-stat .stat-number {
+.love-stat-card:hover .stat-icon {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+}
+
+.love-stat-card .stat-content {
+  position: relative;
+  z-index: 2;
+}
+
+.love-stat-card .stat-number {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #ff1493;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  transition: all var(--transition-medium);
 }
 
-.love-stat .stat-label {
+.love-stat-card:hover .stat-number {
+  transform: scale(1.1);
+  text-shadow: 0 2px 4px rgba(255, 20, 147, 0.3);
+}
+
+.love-stat-card .stat-label {
   font-size: 0.875rem;
   color: var(--text-secondary);
   font-weight: 500;
+  transition: color var(--transition-medium);
 }
 
-.love-gallery {
+.love-stat-card:hover .stat-label {
+  color: var(--text-primary);
+}
+
+.love-gallery-section {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.couple-photos {
+.couple-photos-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 2rem;
+}
+
+.photo-card {
+  background: var(--bg-primary);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(255, 20, 147, 0.15);
+  transition: all var(--transition-medium);
+  border: 1px solid rgba(255, 105, 180, 0.1);
+}
+
+.photo-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(255, 20, 147, 0.25);
+  border-color: rgba(255, 105, 180, 0.3);
 }
 
 .photo-container {
   position: relative;
-  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 15px 35px rgba(255, 20, 147, 0.2);
-  transition: all var(--transition-medium);
 }
 
-.photo-container:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(255, 20, 147, 0.3);
-}
-
-.main-photo {
+.main-photo-card .photo-container {
   height: 350px;
 }
 
-.secondary-photo {
+.secondary-photo-card .photo-container {
   height: 300px;
+}
+
+.photo-caption {
+  padding: 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.05), rgba(255, 20, 147, 0.05));
+}
+
+.photo-caption h4 {
+  color: #ff1493;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.photo-caption p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+  font-style: italic;
 }
 
 .couple-image {
@@ -1699,18 +1792,25 @@ section {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.love-quote {
+.love-quote-card {
   background: var(--bg-primary);
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-medium);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-large);
   border: 1px solid rgba(255, 105, 180, 0.2);
   text-align: center;
   position: relative;
   overflow: hidden;
+  transition: all var(--transition-medium);
 }
 
-.love-quote::before {
+.love-quote-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(255, 20, 147, 0.2);
+  border-color: rgba(255, 105, 180, 0.4);
+}
+
+.love-quote-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -1726,24 +1826,63 @@ section {
   z-index: 2;
 }
 
-.quote-icon {
-  font-size: 2rem;
-  color: #ff1493;
-  margin-bottom: 1rem;
+.quote-icon-wrapper {
+  margin-bottom: 1.5rem;
 }
 
-.quote-content p {
-  font-size: 1.25rem;
+.quote-icon {
+  font-size: 2.5rem;
+  color: #ff1493;
+  transition: all var(--transition-medium);
+}
+
+.love-quote-card:hover .quote-icon {
+  transform: scale(1.1) rotate(5deg);
+  text-shadow: 0 4px 8px rgba(255, 20, 147, 0.3);
+}
+
+.quote-text {
+  font-size: 1.375rem;
   font-style: italic;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
+  font-weight: 500;
+  transition: all var(--transition-medium);
+}
+
+.love-quote-card:hover .quote-text {
+  transform: scale(1.02);
 }
 
 .quote-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   color: #ff1493;
   font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.author-hearts {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.author-hearts i {
+  color: #ff1493;
   font-size: 1rem;
+  animation: heartPulse 2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.3s);
+}
+
+.author-hearts i:nth-child(1) { --i: 0; }
+.author-hearts i:nth-child(2) { --i: 1; }
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 .timeline {
@@ -3075,7 +3214,7 @@ section {
 
   .rover-image {
     height: 200px;
-    padding: 0.75rem;
+    padding: 0;
   }
 
   /* Cultural Section Mobile */
@@ -3112,29 +3251,38 @@ section {
     gap: 2rem;
   }
 
-  .love-card {
+  .love-story-card {
     padding: 2rem;
   }
 
-  .love-stats {
+  .love-stats-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin-top: 1.5rem;
   }
 
-  .love-stat {
+  .love-stat-card {
     padding: 1.25rem 1rem;
   }
 
-  .main-photo {
+  .main-photo-card .photo-container {
     height: 280px;
   }
 
-  .secondary-photo {
+  .secondary-photo-card .photo-container {
     height: 240px;
   }
 
-  .love-quote {
-    padding: 1.5rem;
+  .photo-caption {
+    padding: 1.25rem;
+  }
+
+  .love-quote-card {
+    padding: 2rem;
+  }
+
+  .quote-text {
+    font-size: 1.25rem;
   }
 }
 
@@ -3532,7 +3680,7 @@ section {
   }
 
   .rover-image {
-    padding: 0.5rem;
+    padding: 0;
   }
 
   /* Cultural Section Small Mobile */
@@ -3559,7 +3707,7 @@ section {
   }
 
   /* Love Section Small Mobile */
-  .love-card {
+  .love-story-card {
     padding: 1.5rem;
     margin: 0 0.5rem;
   }
@@ -3580,40 +3728,64 @@ section {
     font-size: 1.25rem;
   }
 
-  .love-stats {
+  .love-stats-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+    margin-top: 1rem;
   }
 
-  .love-stat {
+  .love-stat-card {
     padding: 1rem 0.75rem;
   }
 
-  .love-stat .stat-icon {
-    width: 35px;
-    height: 35px;
+  .love-stat-card .stat-icon {
+    width: 40px;
+    height: 40px;
     font-size: 1rem;
+    margin-bottom: 0.75rem;
   }
 
-  .love-stat .stat-number {
-    font-size: 1.25rem;
+  .love-stat-card .stat-number {
+    font-size: 1.5rem;
   }
 
-  .main-photo {
-    height: 220px;
-  }
-
-  .secondary-photo {
-    height: 200px;
-  }
-
-  .love-quote {
-    padding: 1.25rem;
+  .photo-card {
     margin: 0 0.5rem;
   }
 
-  .quote-content p {
+  .main-photo-card .photo-container {
+    height: 220px;
+  }
+
+  .secondary-photo-card .photo-container {
+    height: 200px;
+  }
+
+  .photo-caption {
+    padding: 1rem;
+  }
+
+  .photo-caption h4 {
+    font-size: 1rem;
+  }
+
+  .photo-caption p {
+    font-size: 0.8rem;
+  }
+
+  .love-quote-card {
+    padding: 1.5rem;
+    margin: 0 0.5rem;
+  }
+
+  .quote-text {
     font-size: 1.125rem;
+  }
+
+  .quote-author {
+    font-size: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .floating-hearts i {
