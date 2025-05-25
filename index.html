@@ -1366,6 +1366,37 @@
         </div>
     </div>
 
+    <!-- Floating Auto-Scroll Navigation -->
+    <div id="floating-nav" class="floating-nav">
+        <button id="auto-scroll-btn" class="auto-scroll-btn" title="Auto-scroll through sections">
+            <div class="btn-icon">
+                <i class="fas fa-play"></i>
+            </div>
+            <div class="btn-progress">
+                <svg class="progress-ring" width="60" height="60">
+                    <circle class="progress-ring-bg" cx="30" cy="30" r="26"></circle>
+                    <circle class="progress-ring-fill" cx="30" cy="30" r="26"></circle>
+                </svg>
+            </div>
+            <div class="btn-tooltip">
+                <span id="tooltip-text">Start Auto-Scroll</span>
+                <div class="tooltip-arrow"></div>
+            </div>
+        </button>
+        
+        <div class="section-indicator">
+            <div class="indicator-dots">
+                <div class="dot active" data-section="home" title="Home"></div>
+                <div class="dot" data-section="about" title="About"></div>
+                <div class="dot" data-section="experience" title="Experience"></div>
+                <div class="dot" data-section="cultural" title="Cultural"></div>
+                <div class="dot" data-section="projects" title="Projects"></div>
+                <div class="dot" data-section="research" title="Research"></div>
+                <div class="dot" data-section="contact" title="Contact"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">

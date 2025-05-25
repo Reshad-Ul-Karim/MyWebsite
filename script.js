@@ -23,6 +23,7 @@ function initializeWebsite() {
     initYouTubeModal();
     initPDFViewer();
     initImageModal();
+    initFloatingNav();
     initAboutInteractions();
     
     // Add event listeners
@@ -1582,6 +1583,268 @@ function initImageModal() {
             document.body.removeChild(link);
         }
     }
+}
+
+// ===== FLOATING AUTO-SCROLL NAVIGATION =====
+function initFloatingNav() {
+    const floatingNav = document.getElementById('floating-nav');
+    const autoScrollBtn = document.getElementById('auto-scroll-btn');
+    const tooltipText = document.getElementById('tooltip-text');
+    const dots = document.querySelectorAll('.dot');
+    
+    if (!floatingNav || !autoScrollBtn) return;
+    
+    const sections = ['home', 'about', 'experience', 'cultural', 'projects', 'research', 'contact'];
+    let currentSectionIndex = 0;
+    let isAutoScrolling = false;
+    let autoScrollInterval;
+    let scrollTimeout;
+    
+    // Auto-scroll functionality
+    function startAutoScroll() {
+        if (isAutoScrolling) {
+            stopAutoScroll();
+            return;
+        }
+        
+        isAutoScrolling = true;
+        autoScrollBtn.classList.add('scrolling');
+        tooltipText.textContent = 'Stop Auto-Scroll';
+        
+        // Start from current section or beginning
+        const currentSection = getCurrentSection();
+        currentSectionIndex = sections.indexOf(currentSection);
+        if (currentSectionIndex === -1) currentSectionIndex = 0;
+        
+        autoScrollToNextSection();
+        
+        // Set interval for continuous scrolling
+        autoScrollInterval = setInterval(() => {
+            autoScrollToNextSection();
+        }, 4000); // 4 seconds per section
+    }
+    
+    function stopAutoScroll() {
+        isAutoScrolling = false;
+        autoScrollBtn.classList.remove('scrolling');
+        tooltipText.textContent = 'Start Auto-Scroll';
+        
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+        
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = null;
+        }
+    }
+    
+    function autoScrollToNextSection() {
+        if (!isAutoScrolling) return;
+        
+        currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+        const targetSection = sections[currentSectionIndex];
+        
+        scrollToSection(targetSection, true);
+        updateSectionIndicator(targetSection);
+        
+        // Add visual feedback
+        const targetDot = document.querySelector(`.dot[data-section="${targetSection}"]`);
+        if (targetDot) {
+            targetDot.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                if (targetDot) {
+                    targetDot.style.transform = '';
+                }
+            }, 300);
+        }
+    }
+    
+    function scrollToSection(sectionId, smooth = true) {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        
+        const offsetTop = section.offsetTop - 80; // Account for navbar
+        
+        if (smooth) {
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        } else {
+            window.scrollTo(0, offsetTop);
+        }
+    }
+    
+    function getCurrentSection() {
+        const scrollPosition = window.scrollY + 100;
+        
+        for (let i = sections.length - 1; i >= 0; i--) {
+            const section = document.getElementById(sections[i]);
+            if (section && section.offsetTop <= scrollPosition) {
+                return sections[i];
+            }
+        }
+        
+        return sections[0];
+    }
+    
+    function updateSectionIndicator(activeSection) {
+        dots.forEach(dot => {
+            const sectionId = dot.getAttribute('data-section');
+            dot.classList.remove('active');
+            
+            if (sectionId === activeSection) {
+                dot.classList.add('active');
+            }
+            
+            // Mark as visited if we've scrolled past it
+            const sectionIndex = sections.indexOf(sectionId);
+            const activeSectionIndex = sections.indexOf(activeSection);
+            if (sectionIndex < activeSectionIndex) {
+                dot.classList.add('visited');
+            } else if (sectionIndex > activeSectionIndex) {
+                dot.classList.remove('visited');
+            }
+        });
+    }
+    
+    // Event listeners
+    autoScrollBtn.addEventListener('click', startAutoScroll);
+    
+    // Manual section navigation via dots
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const sectionId = dot.getAttribute('data-section');
+            
+            // Stop auto-scroll if active
+            if (isAutoScrolling) {
+                stopAutoScroll();
+            }
+            
+            scrollToSection(sectionId);
+            updateSectionIndicator(sectionId);
+            currentSectionIndex = sections.indexOf(sectionId);
+        });
+    });
+    
+    // Update indicator on manual scroll
+    let scrollUpdateTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollUpdateTimeout) {
+            clearTimeout(scrollUpdateTimeout);
+        }
+        
+        scrollUpdateTimeout = setTimeout(() => {
+            if (!isAutoScrolling) {
+                const currentSection = getCurrentSection();
+                updateSectionIndicator(currentSection);
+                currentSectionIndex = sections.indexOf(currentSection);
+            }
+        }, 100);
+    });
+    
+    // Stop auto-scroll on manual scroll (if user scrolls manually)
+    let isUserScrolling = false;
+    let userScrollTimeout;
+    
+    window.addEventListener('wheel', () => {
+        if (isAutoScrolling) {
+            isUserScrolling = true;
+            
+            if (userScrollTimeout) {
+                clearTimeout(userScrollTimeout);
+            }
+            
+            userScrollTimeout = setTimeout(() => {
+                if (isUserScrolling) {
+                    stopAutoScroll();
+                    isUserScrolling = false;
+                }
+            }, 500);
+        }
+    });
+    
+    // Touch events for mobile
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    });
+    
+    window.addEventListener('touchmove', (e) => {
+        if (isAutoScrolling) {
+            const touchY = e.touches[0].clientY;
+            const deltaY = Math.abs(touchY - touchStartY);
+            
+            if (deltaY > 10) { // Threshold for intentional scroll
+                stopAutoScroll();
+            }
+        }
+    });
+    
+    // Hide floating nav when modals are open
+    const modals = ['youtube-modal', 'pdf-modal', 'image-modal'];
+    modals.forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const isModalActive = modal.classList.contains('active');
+                        floatingNav.style.display = isModalActive ? 'none' : 'flex';
+                        
+                        if (isModalActive && isAutoScrolling) {
+                            stopAutoScroll();
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(modal, { attributes: true });
+        }
+    });
+    
+    // Initialize with current section
+    const initialSection = getCurrentSection();
+    updateSectionIndicator(initialSection);
+    currentSectionIndex = sections.indexOf(initialSection);
+    
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Space bar to toggle auto-scroll
+        if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+            e.preventDefault();
+            startAutoScroll();
+        }
+        
+        // Escape to stop auto-scroll
+        if (e.code === 'Escape' && isAutoScrolling) {
+            stopAutoScroll();
+        }
+        
+        // Arrow keys for manual navigation
+        if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
+            if (!e.target.matches('input, textarea')) {
+                e.preventDefault();
+                
+                if (isAutoScrolling) {
+                    stopAutoScroll();
+                }
+                
+                const direction = e.code === 'ArrowDown' ? 1 : -1;
+                const newIndex = Math.max(0, Math.min(sections.length - 1, currentSectionIndex + direction));
+                
+                if (newIndex !== currentSectionIndex) {
+                    currentSectionIndex = newIndex;
+                    const targetSection = sections[currentSectionIndex];
+                    scrollToSection(targetSection);
+                    updateSectionIndicator(targetSection);
+                }
+            }
+        }
+    });
 }
 
 // ===== ABOUT ME INTERACTIVE FEATURES =====
