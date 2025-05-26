@@ -527,27 +527,48 @@ function initThemeToggle() {
     themeToggle.setAttribute('aria-label', 'Toggle dark mode');
     themeToggle.setAttribute('title', 'Toggle dark/light mode');
     
-    // Add styles
-    themeToggle.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: none;
-        background: var(--primary-color);
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        box-shadow: var(--shadow-large);
-        transition: all var(--transition-medium);
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transform: scale(1);
-    `;
+    // Add styles with responsive positioning
+    const updateThemeTogglePosition = () => {
+        const isMobile = window.innerWidth <= 768;
+        const floatingNav = document.querySelector('.floating-nav');
+        
+        let bottomPosition = '20px';
+        let rightPosition = '20px';
+        
+        if (isMobile) {
+            // Position above floating nav on mobile
+            bottomPosition = floatingNav ? '140px' : '80px';
+            rightPosition = '15px';
+        }
+        
+        themeToggle.style.cssText = `
+            position: fixed;
+            bottom: ${bottomPosition};
+            right: ${rightPosition};
+            width: ${isMobile ? '45px' : '50px'};
+            height: ${isMobile ? '45px' : '50px'};
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            font-size: ${isMobile ? '1.1rem' : '1.2rem'};
+            cursor: pointer;
+            box-shadow: var(--shadow-large);
+            transition: all var(--transition-medium);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        `;
+    };
+    
+    updateThemeTogglePosition();
+    
+    // Update position on resize
+    window.addEventListener('resize', updateThemeTogglePosition);
     
     // Add hover effect
     themeToggle.addEventListener('mouseenter', () => {

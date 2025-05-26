@@ -30,6 +30,12 @@
   --transition-fast: 0.2s ease;
   --transition-medium: 0.3s ease;
   --transition-slow: 0.5s ease;
+  
+  /* Mobile Safe Areas */
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+  --safe-area-inset-right: env(safe-area-inset-right);
 }
 
 /* ===== DARK MODE VARIABLES ===== */
@@ -209,6 +215,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 body {
@@ -217,6 +226,16 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
 }
 
 /* ===== PARTICLES BACKGROUND ===== */
@@ -450,10 +469,11 @@ a {
 /* ===== HERO SECTION ===== */
 .hero {
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
   display: flex;
   align-items: center;
   position: relative;
-  padding: clamp(2rem, 8vw, 5rem) 0;
+  padding: max(2rem, calc(4rem + var(--safe-area-inset-top))) 0 2rem 0;
   background: 
     linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(236, 72, 153, 0.08)),
     radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
@@ -1276,6 +1296,9 @@ section {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--primary-color);
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .skills-list {
@@ -1984,9 +2007,11 @@ section {
 
 /* ===== CULTURAL LEADERSHIP SECTION ===== */
 .cultural {
-  padding: clamp(3rem, 8vw, 6rem) 0;
-  margin-top: -2rem;
-  background: linear-gradient(135deg, var(--bg-color) 0%, rgba(236, 72, 153, 0.05) 100%);
+  padding: clamp(4rem, 8vw, 8rem) 0;
+  background: 
+    linear-gradient(135deg, rgba(99, 102, 241, 0.02), rgba(236, 72, 153, 0.02)),
+    radial-gradient(circle at 30% 70%, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.03) 0%, transparent 50%);
   position: relative;
   overflow: hidden;
 }
@@ -1998,28 +2023,55 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 20%, rgba(236, 72, 153, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: dotPattern 20s linear infinite;
-  pointer-events: none;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cultural-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20,0 L20,40 M0,20 L40,20" fill="none" stroke="rgba(99,102,241,0.06)" stroke-width="0.5"/><circle cx="20" cy="20" r="1.5" fill="rgba(236,72,153,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23cultural-grid)"/></svg>');
+  animation: dotPattern 50s linear infinite;
+  opacity: 0.7;
+  z-index: 0;
 }
 
 .cultural-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--container-padding);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 5rem;
   align-items: start;
+  position: relative;
+  z-index: 1;
 }
 
 .leadership-card {
   background: var(--bg-primary);
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-medium);
-  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.leadership-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  border-radius: 20px 20px 0 0;
+}
+
+.leadership-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 32px 64px rgba(0, 0, 0, 0.12),
+    0 16px 32px rgba(0, 0, 0, 0.08);
 }
 
 .leadership-header {
@@ -2065,31 +2117,102 @@ section {
 .achievement-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.75rem;
-  background: rgba(99, 102, 241, 0.05);
-  border-radius: 8px;
-  border-left: 3px solid var(--primary-color);
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: 
+    linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(236, 72, 153, 0.04)),
+    rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(5px);
+}
+
+.achievement-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 16px 0 0 16px;
+}
+
+.achievement-item:hover {
+  transform: translateX(8px);
+  background: 
+    linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(236, 72, 153, 0.06)),
+    rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
 }
 
 .achievement-item i {
   color: var(--primary-color);
-  font-size: 1.2rem;
-  min-width: 20px;
+  font-size: 1.4rem;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.achievement-item:hover i {
+  background: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
 }
 
 .achievement-item span {
   color: var(--text-primary);
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  flex: 1;
 }
 
 .current-role {
-  background: var(--bg-primary);
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-medium);
-  border: 1px solid var(--border-color);
+  background: 
+    linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.03)),
+    var(--bg-primary);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 
+    0 16px 32px rgba(0, 0, 0, 0.06),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.current-role::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="role-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.8" fill="rgba(99,102,241,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23role-pattern)"/></svg>');
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.current-role > * {
+  position: relative;
+  z-index: 1;
+}
+
+.current-role:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 24px 48px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.06);
 }
 
 .current-role h4 {
@@ -2169,21 +2292,43 @@ section {
 .cultural-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .cultural-stat {
   text-align: center;
-  padding: 1.5rem 1rem;
-  background: var(--bg-primary);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-medium);
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease;
+  padding: 2rem 1.5rem;
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
+    var(--bg-primary);
+  border-radius: 20px;
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.06),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.cultural-stat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 20px 20px 0 0;
 }
 
 .cultural-stat:hover {
-  transform: translateY(-3px);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.06);
 }
 
 .cultural-stat .stat-number {
@@ -4275,9 +4420,12 @@ section {
   }
   
   .hero {
-    padding: clamp(1.5rem, 8vw, 3rem) 0;
-    min-height: 90vh;
+    padding: max(calc(4rem + var(--safe-area-inset-top)), 6rem) 0 clamp(1.5rem, 8vw, 3rem) 0;
+    min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    display: flex;
+    align-items: center;
   }
   
   .about,
@@ -4897,12 +5045,34 @@ section {
   /* Cultural Section Mobile */
   .cultural-content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
+    padding: 0 1rem;
   }
 
   .cultural-stats {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .leadership-card {
+    padding: 2rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .achievement-item {
+    padding: 1rem;
     gap: 1rem;
+  }
+
+  .achievement-item i {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .current-role {
+    padding: 1.5rem;
   }
 
   .gallery-image {
@@ -5446,7 +5616,8 @@ section {
   }
 
   .cultural-stat {
-    padding: 1rem 0.75rem;
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
   }
 
   .cultural-stat .stat-number {
@@ -5457,10 +5628,27 @@ section {
   .current-role {
     padding: 1.5rem;
     margin: 0 0.5rem;
+    border-radius: 16px;
   }
 
   .achievement-item {
-    padding: 0.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .achievement-item i {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  .cultural-content {
+    gap: 2rem;
+  }
+
+  .cultural-stats {
+    gap: 1rem;
+    margin-top: 1rem;
   }
 
 
