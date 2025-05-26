@@ -144,13 +144,11 @@ function initParticles() {
 function initAOS() {
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 600,           // Reduced from 1000ms to 600ms for faster animations
-            easing: 'ease-out-cubic', // Changed to faster easing
+            duration: 1000,
+            easing: 'ease-in-out',
             once: true,
             mirror: false,
-            offset: 50,              // Reduced from 100px to 50px for earlier trigger
-            delay: 0,                // No delay
-            anchorPlacement: 'top-bottom' // Trigger when element top hits viewport bottom
+            offset: 100
         });
     }
 }
@@ -329,7 +327,7 @@ function handleScrollAnimations() {
     
     elements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 80; // Reduced from 150px to 80px for earlier trigger
+        const elementVisible = 150;
         
         if (elementTop < windowHeight - elementVisible) {
             element.classList.add('visible');
@@ -714,8 +712,8 @@ function initSkillTagsAnimation() {
 // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
 function initIntersectionObserver() {
     const observerOptions = {
-        threshold: 0.05,              // Reduced from 0.1 to 0.05 for earlier trigger
-        rootMargin: '0px 0px -20px 0px' // Reduced from -50px to -20px for earlier trigger
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -1688,101 +1686,44 @@ function initFloatingNav() {
         const section = document.getElementById(sectionId);
         if (!section) return;
         
-        // Get navbar height dynamically
-        const navbar = document.getElementById('navbar');
-        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+        // Calculate proper offset to center the section
+        const navbarHeight = 80;
+        const viewportHeight = window.innerHeight;
+        const sectionHeight = section.offsetHeight;
         
-        // Calculate the exact position to scroll to
-        let targetPosition;
+        // Center the section in viewport, but ensure we don't scroll past the section
+        let offsetTop = section.offsetTop - navbarHeight;
         
-        if (sectionId === 'home') {
-            // For home section, scroll to the very top
-            targetPosition = 0;
-        } else {
-            // For other sections, use a more conservative approach
-            // Position section top just below the navbar with minimal padding
-            targetPosition = section.offsetTop - navbarHeight - 10; // Reduced padding to 10px
-            
-            // Ensure the section is fully visible
-            const sectionHeight = section.offsetHeight;
-            const viewportHeight = window.innerHeight;
-            
-            // If section is very tall, just position it below navbar
-            // If section is short, center it better in viewport
-            if (sectionHeight < viewportHeight * 0.8) {
-                targetPosition = section.offsetTop - navbarHeight - 50; // More space for shorter sections
-            }
+        // If section is smaller than viewport, center it
+        if (sectionHeight < viewportHeight - navbarHeight) {
+            offsetTop = section.offsetTop - (viewportHeight - sectionHeight) / 2;
         }
         
         // Ensure we don't scroll beyond document bounds
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        targetPosition = Math.max(0, Math.min(targetPosition, maxScroll));
+        const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+        offsetTop = Math.max(0, Math.min(offsetTop, maxScroll));
         
         if (smooth) {
-            // Try custom scroll first
             window.scrollTo({
-                top: targetPosition,
+                top: offsetTop,
                 behavior: 'smooth'
             });
-            
-            // Fallback: use native scrollIntoView if custom scroll seems problematic
-            setTimeout(() => {
-                const currentScroll = window.scrollY;
-                const expectedRange = Math.abs(currentScroll - targetPosition);
-                
-                // If we're not close to where we expected to be, use native scroll
-                if (expectedRange > 100) {
-                    console.log('Using fallback scrollIntoView for', sectionId);
-                    section.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }, 1000); // Check after scroll animation should complete
         } else {
-            window.scrollTo(0, targetPosition);
+            window.scrollTo(0, offsetTop);
         }
-        
-        // Debug logging
-        console.log(`Scrolling to ${sectionId}:`, {
-            sectionTop: section.offsetTop,
-            sectionHeight: section.offsetHeight,
-            navbarHeight: navbarHeight,
-            targetPosition: targetPosition,
-            currentScroll: window.scrollY,
-            viewportHeight: window.innerHeight
-        });
-        
-        // Refresh AOS after scroll to ensure animations trigger properly
-        setTimeout(() => {
-            if (typeof AOS !== 'undefined') {
-                AOS.refresh();
-            }
-        }, 100);
     }
     
     function getCurrentSection() {
-        const navbar = document.getElementById('navbar');
-        const navbarHeight = navbar ? navbar.offsetHeight : 80;
-        const scrollPosition = window.scrollY + navbarHeight + 100; // Increased buffer for better detection
-        
-        // Simple approach: find the section that the scroll position is currently in
-        let currentSection = sections[0];
+        const scrollPosition = window.scrollY + 100;
         
         for (let i = sections.length - 1; i >= 0; i--) {
             const section = document.getElementById(sections[i]);
-            if (!section) continue;
-            
-            const sectionTop = section.offsetTop;
-            
-            // If we've scrolled past this section's start, it's the current section
-            if (scrollPosition >= sectionTop) {
-                currentSection = sections[i];
-                break;
+            if (section && section.offsetTop <= scrollPosition) {
+                return sections[i];
             }
         }
         
-        return currentSection;
+        return sections[0];
     }
     
     function updateSectionIndicator(activeSection) {
@@ -1957,8 +1898,8 @@ function initStatCounters() {
     const statItems = document.querySelectorAll('.stat-item');
     
     const observerOptions = {
-        threshold: 0.3,               // Reduced from 0.5 to 0.3 for earlier trigger
-        rootMargin: '0px 0px -20px 0px' // Reduced from -50px to -20px for earlier trigger
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -2253,8 +2194,8 @@ function initAboutScrollAnimations() {
     if (!aboutSection) return;
     
     const observerOptions = {
-        threshold: 0.05,              // Reduced from 0.1 to 0.05 for earlier trigger
-        rootMargin: '0px 0px -30px 0px' // Reduced from -100px to -30px for much earlier trigger
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
