@@ -1686,44 +1686,74 @@ function initFloatingNav() {
         const section = document.getElementById(sectionId);
         if (!section) return;
         
-        // Calculate proper offset to center the section
-        const navbarHeight = 80;
-        const viewportHeight = window.innerHeight;
-        const sectionHeight = section.offsetHeight;
+        // Get navbar height dynamically
+        const navbar = document.getElementById('navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 80;
         
-        // Center the section in viewport, but ensure we don't scroll past the section
-        let offsetTop = section.offsetTop - navbarHeight;
+        // Calculate the exact position to scroll to
+        let targetPosition;
         
-        // If section is smaller than viewport, center it
-        if (sectionHeight < viewportHeight - navbarHeight) {
-            offsetTop = section.offsetTop - (viewportHeight - sectionHeight) / 2;
+        if (sectionId === 'home') {
+            // For home section, scroll to the very top
+            targetPosition = 0;
+        } else {
+            // For other sections, position them just below the navbar
+            targetPosition = section.offsetTop - navbarHeight - 20; // 20px extra padding
         }
         
         // Ensure we don't scroll beyond document bounds
-        const maxScroll = document.documentElement.scrollHeight - viewportHeight;
-        offsetTop = Math.max(0, Math.min(offsetTop, maxScroll));
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        targetPosition = Math.max(0, Math.min(targetPosition, maxScroll));
         
         if (smooth) {
             window.scrollTo({
-                top: offsetTop,
+                top: targetPosition,
                 behavior: 'smooth'
             });
         } else {
-            window.scrollTo(0, offsetTop);
+            window.scrollTo(0, targetPosition);
         }
+        
+        // Debug logging
+        console.log(`Scrolling to ${sectionId}:`, {
+            sectionTop: section.offsetTop,
+            navbarHeight: navbarHeight,
+            targetPosition: targetPosition,
+            currentScroll: window.scrollY
+        });
     }
     
     function getCurrentSection() {
-        const scrollPosition = window.scrollY + 100;
+        const navbar = document.getElementById('navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+        const scrollPosition = window.scrollY + navbarHeight + 50; // 50px buffer
         
-        for (let i = sections.length - 1; i >= 0; i--) {
-            const section = document.getElementById(sections[i]);
-            if (section && section.offsetTop <= scrollPosition) {
-                return sections[i];
+        // Check which section is most visible in the viewport
+        let currentSection = sections[0];
+        let maxVisibleArea = 0;
+        
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+            
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const viewportTop = window.scrollY + navbarHeight;
+            const viewportBottom = window.scrollY + window.innerHeight;
+            
+            // Calculate visible area of this section
+            const visibleTop = Math.max(sectionTop, viewportTop);
+            const visibleBottom = Math.min(sectionBottom, viewportBottom);
+            const visibleArea = Math.max(0, visibleBottom - visibleTop);
+            
+            // If this section has more visible area, it's the current section
+            if (visibleArea > maxVisibleArea) {
+                maxVisibleArea = visibleArea;
+                currentSection = sectionId;
             }
-        }
+        });
         
-        return sections[0];
+        return currentSection;
     }
     
     function updateSectionIndicator(activeSection) {
