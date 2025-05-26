@@ -7,6 +7,11 @@
     <meta name="keywords" content="AI, Robotics, Machine Learning, Computer Vision, Mars Rover, IEEE Research">
     <meta name="author" content="Reshad Ul Karim">
     
+    <!-- Cache Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Reshad Ul Karim - AI & Robotics Engineer">
     <meta property="og:description" content="Computer Science Undergraduate | AI & Robotics Specialist | Published IEEE Researcher | Mars Rover Team Member">
@@ -25,6 +30,12 @@
     
     <title>Reshad Ul Karim | AI & Robotics Engineer</title>
     
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//unpkg.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +51,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.2.0">
 </head>
 <body>
     <!-- Particles Background -->
@@ -1544,6 +1555,34 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=1.2.0"></script>
+    
+    <!-- Cache Management Script -->
+    <script>
+        // Clear any existing service worker cache
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        // Clear browser cache on page load for development
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names) {
+                    caches.delete(name);
+                }
+            });
+        }
+        
+        // Force reload CSS if needed
+        const cssLink = document.querySelector('link[href*="styles.css"]');
+        if (cssLink) {
+            const href = cssLink.href;
+            cssLink.href = href.split('?')[0] + '?v=' + Date.now();
+        }
+    </script>
 </body>
 </html> 
