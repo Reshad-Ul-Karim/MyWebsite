@@ -144,11 +144,13 @@ function initParticles() {
 function initAOS() {
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 1000,
-            easing: 'ease-in-out',
+            duration: 600,           // Reduced from 1000ms to 600ms for faster animations
+            easing: 'ease-out-cubic', // Changed to faster easing
             once: true,
             mirror: false,
-            offset: 100
+            offset: 50,              // Reduced from 100px to 50px for earlier trigger
+            delay: 0,                // No delay
+            anchorPlacement: 'top-bottom' // Trigger when element top hits viewport bottom
         });
     }
 }
@@ -327,7 +329,7 @@ function handleScrollAnimations() {
     
     elements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
+        const elementVisible = 80; // Reduced from 150px to 80px for earlier trigger
         
         if (elementTop < windowHeight - elementVisible) {
             element.classList.add('visible');
@@ -712,8 +714,8 @@ function initSkillTagsAnimation() {
 // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
 function initIntersectionObserver() {
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05,              // Reduced from 0.1 to 0.05 for earlier trigger
+        rootMargin: '0px 0px -20px 0px' // Reduced from -50px to -20px for earlier trigger
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -1750,6 +1752,13 @@ function initFloatingNav() {
             currentScroll: window.scrollY,
             viewportHeight: window.innerHeight
         });
+        
+        // Refresh AOS after scroll to ensure animations trigger properly
+        setTimeout(() => {
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
+        }, 100);
     }
     
     function getCurrentSection() {
@@ -1948,8 +1957,8 @@ function initStatCounters() {
     const statItems = document.querySelectorAll('.stat-item');
     
     const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.3,               // Reduced from 0.5 to 0.3 for earlier trigger
+        rootMargin: '0px 0px -20px 0px' // Reduced from -50px to -20px for earlier trigger
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -2244,8 +2253,8 @@ function initAboutScrollAnimations() {
     if (!aboutSection) return;
     
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.05,              // Reduced from 0.1 to 0.05 for earlier trigger
+        rootMargin: '0px 0px -30px 0px' // Reduced from -100px to -30px for much earlier trigger
     };
     
     const observer = new IntersectionObserver((entries) => {
