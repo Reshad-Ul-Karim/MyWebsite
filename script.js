@@ -1697,8 +1697,19 @@ function initFloatingNav() {
             // For home section, scroll to the very top
             targetPosition = 0;
         } else {
-            // For other sections, position them just below the navbar
-            targetPosition = section.offsetTop - navbarHeight - 20; // 20px extra padding
+            // For other sections, use a more conservative approach
+            // Position section top just below the navbar with minimal padding
+            targetPosition = section.offsetTop - navbarHeight - 10; // Reduced padding to 10px
+            
+            // Ensure the section is fully visible
+            const sectionHeight = section.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            
+            // If section is very tall, just position it below navbar
+            // If section is short, center it better in viewport
+            if (sectionHeight < viewportHeight * 0.8) {
+                targetPosition = section.offsetTop - navbarHeight - 50; // More space for shorter sections
+            }
         }
         
         // Ensure we don't scroll beyond document bounds
@@ -1706,10 +1717,26 @@ function initFloatingNav() {
         targetPosition = Math.max(0, Math.min(targetPosition, maxScroll));
         
         if (smooth) {
+            // Try custom scroll first
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'smooth'
             });
+            
+            // Fallback: use native scrollIntoView if custom scroll seems problematic
+            setTimeout(() => {
+                const currentScroll = window.scrollY;
+                const expectedRange = Math.abs(currentScroll - targetPosition);
+                
+                // If we're not close to where we expected to be, use native scroll
+                if (expectedRange > 100) {
+                    console.log('Using fallback scrollIntoView for', sectionId);
+                    section.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 1000); // Check after scroll animation should complete
         } else {
             window.scrollTo(0, targetPosition);
         }
@@ -1717,41 +1744,34 @@ function initFloatingNav() {
         // Debug logging
         console.log(`Scrolling to ${sectionId}:`, {
             sectionTop: section.offsetTop,
+            sectionHeight: section.offsetHeight,
             navbarHeight: navbarHeight,
             targetPosition: targetPosition,
-            currentScroll: window.scrollY
+            currentScroll: window.scrollY,
+            viewportHeight: window.innerHeight
         });
     }
     
     function getCurrentSection() {
         const navbar = document.getElementById('navbar');
         const navbarHeight = navbar ? navbar.offsetHeight : 80;
-        const scrollPosition = window.scrollY + navbarHeight + 50; // 50px buffer
+        const scrollPosition = window.scrollY + navbarHeight + 100; // Increased buffer for better detection
         
-        // Check which section is most visible in the viewport
+        // Simple approach: find the section that the scroll position is currently in
         let currentSection = sections[0];
-        let maxVisibleArea = 0;
         
-        sections.forEach(sectionId => {
-            const section = document.getElementById(sectionId);
-            if (!section) return;
+        for (let i = sections.length - 1; i >= 0; i--) {
+            const section = document.getElementById(sections[i]);
+            if (!section) continue;
             
             const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-            const viewportTop = window.scrollY + navbarHeight;
-            const viewportBottom = window.scrollY + window.innerHeight;
             
-            // Calculate visible area of this section
-            const visibleTop = Math.max(sectionTop, viewportTop);
-            const visibleBottom = Math.min(sectionBottom, viewportBottom);
-            const visibleArea = Math.max(0, visibleBottom - visibleTop);
-            
-            // If this section has more visible area, it's the current section
-            if (visibleArea > maxVisibleArea) {
-                maxVisibleArea = visibleArea;
-                currentSection = sectionId;
+            // If we've scrolled past this section's start, it's the current section
+            if (scrollPosition >= sectionTop) {
+                currentSection = sections[i];
+                break;
             }
-        });
+        }
         
         return currentSection;
     }
