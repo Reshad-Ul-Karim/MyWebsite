@@ -1686,7 +1686,22 @@ function initFloatingNav() {
         const section = document.getElementById(sectionId);
         if (!section) return;
         
-        const offsetTop = section.offsetTop - 80; // Account for navbar
+        // Calculate proper offset to center the section
+        const navbarHeight = 80;
+        const viewportHeight = window.innerHeight;
+        const sectionHeight = section.offsetHeight;
+        
+        // Center the section in viewport, but ensure we don't scroll past the section
+        let offsetTop = section.offsetTop - navbarHeight;
+        
+        // If section is smaller than viewport, center it
+        if (sectionHeight < viewportHeight - navbarHeight) {
+            offsetTop = section.offsetTop - (viewportHeight - sectionHeight) / 2;
+        }
+        
+        // Ensure we don't scroll beyond document bounds
+        const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+        offsetTop = Math.max(0, Math.min(offsetTop, maxScroll));
         
         if (smooth) {
             window.scrollTo({

@@ -342,8 +342,16 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1.1;
+}
+
+.name-first,
+.name-last {
+  white-space: nowrap;
 }
 
 .btn {
@@ -1792,40 +1800,38 @@ section {
 
 .duration-length {
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: var(--text-light);
   font-weight: 500;
 }
 
-/* Role Title */
 .role-title {
   margin-bottom: 1.5rem;
 }
 
 .role-title h4 {
   margin: 0 0 0.75rem 0;
+  color: var(--text-primary);
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--primary-color);
 }
 
 .role-tags {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .role-tag {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
   padding: 0.25rem 0.75rem;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--primary-color);
-  border-radius: 8px;
+  border-radius: 1rem;
   font-size: 0.75rem;
   font-weight: 500;
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  border: 1px solid var(--border-color);
 }
 
-/* Experience Highlights */
-.experience-highlights {
+.cultural-highlights {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -1837,43 +1843,56 @@ section {
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-secondary);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
 
 .highlight-item:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateX(8px);
+  transform: translateX(5px);
+  background: var(--primary-color);
+  color: white;
   border-color: var(--primary-color);
 }
 
 .highlight-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: var(--primary-color);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1rem;
+  font-size: 1.125rem;
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.highlight-item:hover .highlight-icon {
+  background: white;
+  color: var(--primary-color);
+  transform: scale(1.1);
 }
 
 .highlight-content h5 {
   margin: 0 0 0.25rem 0;
-  font-size: 1rem;
-  font-weight: 600;
   color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
 .highlight-content p {
   margin: 0;
-  font-size: 0.875rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.highlight-item:hover .highlight-content h5,
+.highlight-item:hover .highlight-content p {
+  color: white;
 }
 
 /* Project Gallery */
@@ -2029,16 +2048,132 @@ section {
   z-index: 0;
 }
 
-.cultural-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--container-padding);
+.cultural-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.cultural-card {
+  background: var(--bg-primary);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
   position: relative;
-  z-index: 1;
+  overflow: hidden;
+}
+
+.cultural-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 20px 20px 0 0;
+}
+
+.cultural-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-large);
+}
+
+.cultural-card.featured {
+  border-color: var(--primary-color);
+}
+
+.cultural-card.featured::after {
+  content: 'Featured';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.cultural-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.organization-logo {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.cultural-card:hover .organization-logo {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.cultural-meta {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.organization-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.organization-name {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.cultural-duration {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.duration-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.duration-badge.current {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.duration-badge.past {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.duration-length {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  font-weight: 500;
 }
 
 .leadership-card {
@@ -2227,16 +2362,10 @@ section {
 }
 
 .cultural-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .gallery-item {
@@ -2353,74 +2482,87 @@ section {
 
 .cultural-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 0;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-.cultural-stat {
+.cultural-stats .stat-card {
   text-align: center;
-  padding: 1.75rem 1.25rem;
-  background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8)),
-    var(--bg-primary);
-  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  background: var(--bg-primary);
+  border-radius: 20px;
   box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.06),
-    0 3px 6px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border-color);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.cultural-stat::before {
+.cultural-stats .stat-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border-radius: 20px 20px 0 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.02), rgba(236, 72, 153, 0.02));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.cultural-stat:hover {
+.cultural-stats .stat-card:hover::before {
+  opacity: 1;
+}
+
+.cultural-stats .stat-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 20px 40px rgba(0, 0, 0, 0.12),
     0 8px 16px rgba(0, 0, 0, 0.06);
 }
 
-.cultural-stat .stat-number {
-  display: block;
-  font-size: 2rem;
+.cultural-stats .stat-card .stat-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.cultural-stats .stat-card:hover .stat-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.cultural-stats .stat-card .stat-content h4 {
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
 }
 
-.cultural-stat .stat-label {
-  font-size: 0.875rem;
+.cultural-stats .stat-card .stat-content p {
   color: var(--text-secondary);
   font-weight: 500;
+  font-size: 0.95rem;
+  margin: 0;
+  position: relative;
+  z-index: 1;
 }
-
-
-
-
-
-
-
-
-
-
 
 .timeline {
   position: relative;
@@ -2898,8 +3040,8 @@ section {
 /* ===== FLOATING AUTO-SCROLL NAVIGATION ===== */
 .floating-nav {
   position: fixed;
+  top: 5rem;
   right: 2rem;
-  bottom: 2rem;
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -3170,8 +3312,8 @@ section {
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .floating-nav {
+    top: 4rem;
     right: 1rem;
-    bottom: 1rem;
   }
   
   .auto-scroll-btn {
@@ -3218,8 +3360,8 @@ section {
 
 @media (max-width: 480px) {
   .floating-nav {
+    top: 3.5rem;
     right: 0.75rem;
-    bottom: 0.75rem;
   }
   
   .auto-scroll-btn {
@@ -5131,14 +5273,22 @@ section {
   }
 
   .cultural-stats {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-top: 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
-  .cultural-stat {
-    padding: 1.5rem 1rem;
-    min-height: 100px;
+  .cultural-stats .stat-card {
+    padding: 1.5rem;
+  }
+
+  .cultural-stats .stat-card .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .cultural-stats .stat-card .stat-content h4 {
+    font-size: 1.5rem;
   }
 
   .leadership-card {
@@ -5747,13 +5897,22 @@ section {
   }
 
   .cultural-stats {
+    grid-template-columns: 1fr;
     gap: 1rem;
-    margin-top: 0;
   }
 
-  .cultural-stat {
-    padding: 1.25rem 0.75rem;
-    min-height: 90px;
+  .cultural-stats .stat-card {
+    padding: 1.25rem;
+  }
+
+  .cultural-stats .stat-card .stat-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+
+  .cultural-stats .stat-card .stat-content h4 {
+    font-size: 1.25rem;
   }
 
 
