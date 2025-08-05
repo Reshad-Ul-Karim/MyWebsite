@@ -24,7 +24,7 @@
 
 🎓 **Computer Science Undergraduate** at BRAC University  
 🤖 **AI & Robotics Specialist** with focus on autonomous systems  
-🏆 **Mars Rover Team Core Member** - URC 2024 Top 38 Globally  
+🏆 **Mars Rover Team Core Member** - URC 2025 Top 8 Globally  
 📍 **Location:** Dhaka, Bangladesh  
 📊 **CGPA:** 3.89/4.00  
 
@@ -124,7 +124,7 @@
 **BRAC University Mars Rover Team - MONGOL TORI** | *Jan 2024 - Present*  
 [![Website](https://img.shields.io/badge/Website-4285F4?style=flat-square&logo=google-chrome&logoColor=white)](https://bit.ly/3OOXw6v)
 
-- 🏆 **URC 2024 Finalist** - Ranked **Top 38 globally** out of 102 teams
+- 🏆 **URC 2025 Finalist** - Ranked **Top 8 globally** out of 102 teams
 - 🔧 Designed high-precision **electronic circuits and PCBs** for robotic arm
 - 🤖 Optimized **AI algorithms** for mallet and bottle detection with **high accuracy**
 - 🎯 Developed **autonomous typing test guidance AI** prototype with **30% reliability improvement**

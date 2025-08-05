@@ -2069,8 +2069,8 @@ function showBadgeInfo(badge) {
     
     if (badgeText.includes('Mars Rover')) {
         message = '🚀 Core team member of BRAC University Mars Rover Team - MONGOL TORI';
-    } else if (badgeText.includes('URC 2024')) {
-        message = '🏆 Achieved Top 38 global ranking in University Rover Challenge 2024';
+                } else if (badgeText.includes('URC 2025')) {
+                message = '🏆 Achieved Top 8 global ranking in University Rover Challenge 2025';
     }
     
     if (message) {
