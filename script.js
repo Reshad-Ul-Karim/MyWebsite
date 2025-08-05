@@ -341,11 +341,11 @@ function initTypingEffect() {
     if (!typingElement) return;
 
     const texts = [
-        'AI & Robotics Engineer',
-        'Published IEEE Researcher',
-        'Mars Rover Team Member',
-        'Machine Learning Developer',
-        'Computer Vision Specialist'
+        'AI & Robotics Engineer | Global Competition Winner | Healthcare Innovator',
+        'Computer Vision Specialist | Mars Rover Team Member | IEEE Researcher',
+        'Autonomous Systems Developer | Cultural Leader | Innovation Pioneer',
+        'Machine Learning Engineer | Accessibility Advocate | Global Finalist',
+        'AI Solutions Architect | Research Scholar | Competition Champion'
     ];
     
     let textIndex = 0;
@@ -2166,7 +2166,7 @@ function initEducationCardInteractions() {
     
     if (achievementBadge) {
         achievementBadge.addEventListener('click', () => {
-            showNotification('🎓 Maintaining excellent academic performance with 3.9/4.00 CGPA', 'success');
+            showNotification('🎓 Maintaining excellent academic performance with 3.89/4.00 CGPA', 'success');
         });
     }
     
