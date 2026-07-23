@@ -68,6 +68,87 @@ Write/curate it so every line is quotable as fact. Recommended coverage:
 
 ---
 
+## 2A. Resource audit — what exists today vs. what must be created
+
+Audited against `MyWebsite/` and `enterprise-AI-document-assistant/`. **Most of the corpus already
+exists**; the gaps are concentrated in two places.
+
+### Layer 1 — PINNED (resume) 🔴 the main gap
+
+| Resource | Status |
+|---|---|
+| **Mother resume (exhaustive master)** | ❌ **Does not exist — must be created** |
+
+Every resume on disk is a ~97 KB **1–2 page tailored** version (all the same document iterated). The
+mother resume is a different artifact: exhaustive, never sent to anyone, existing only to be the
+pinned source of truth. Best starting materials:
+
+| File | Date | Use |
+|---|---|---|
+| `MyWebsite/resume.tex` | Jan 26 | LaTeX **source** — easiest to expand |
+| `Resume___Reshad_Ul_karim__v1.pdf` | **May 25 (newest)** | Most current content |
+| `~/resume/Reshad - Shorter (2).txt` | Aug 2025 | 8 KB plain text — easy to mine |
+
+> ⚠️ **Unrelated bug found during the audit:** the CV served on the live site
+> (`assets/papers/Reshad_Ul_Karim_Resume.pdf`, Feb 12) is **3 months older** than the newest
+> (May 25). The site is serving a stale résumé — worth fixing independently of this project.
+
+### Layer 2 — RETRIEVED: project documentation 🟢 mostly present
+
+| Resource | Status |
+|---|---|
+| `data/projects.json` — **12 projects, 43 written sections** | ✅ **Present — the bulk of the corpus** |
+| `docs/PROJECT_DESCRIPTIONS.md` (10 KB prose) | ✅ Present |
+| `data/taxonomy.json` (domain labels) | ✅ Present |
+| 6 "ready but thin" projects — description only, no sections | ⚠️ **Need write-ups** |
+| 2 coming-soon projects | ❌ No content at all |
+
+- **Thin (need writing):** `mars-rover-keyboard-typing`, `sleep-stage-xai`, `matrimonial-hub`,
+  `weheal`, `gesture-keyboard-mouse`, `wearable-fall-detection`
+- **Missing entirely:** `dristee-navigation`, `vit-autism-detection`
+- **Project PDFs present:** `cse350-obstacle-robot-report.pdf`, `Group19-CSE422.pdf`,
+  `cse428-pet-segmentation-slides.pdf`, `hand-gesture-keyboard-mouse-slides.pdf`
+
+### Layer 3 — RETRIEVED: publications 🟡 3 of 4
+
+| Publication | PDF |
+|---|---|
+| `ppg-sleep-4stage-xai` (ICEACE) | ✅ `xai-sleep-classification.pdf` |
+| `ppg-sleep-ml` (ICEACE) | ✅ `sleep-classification.pdf` |
+| `gesture-keyboard-jcsse-2026` | ⚠️ Only **slides**, not the paper |
+| **`stroke-xai-ieee-access`** | ❌ **MISSING** |
+
+> The missing file is the **first-author IEEE Access** paper — the single most important document for
+> a PhD supervisor, and the highest-value thing to add.
+
+### Layer 4 — Achievements 🟢 bonus material already on disk
+
+`AI Fundamentals.pdf` · `Transformer Models with PyTorch.pdf` · `Image Processing course.pdf` ·
+`Certificate of Participat….pdf` — raw material for the awards/certifications section of the résumé.
+
+### Assistant repo — replaced, not created
+
+| Path | Action |
+|---|---|
+| `Assets/` (Partex + Labour Act + medical PDFs) | Swap for the personal corpus |
+| `index/` (`chunks.jsonl`, `index.npz`, `index_meta.json`) | **Regenerated automatically** by `build_index` |
+| `evals/golden.yaml` | Rewrite with the persona tiers (§7) |
+
+### The actual to-do list
+
+| # | Task | Effort |
+|---|---|---|
+| 1 | **Write the mother resume** (expand `resume.tex`; exhaustive on skills) | ~2–3 hrs ⭐ |
+| 2 | Add the **IEEE Access paper PDF** | 5 min |
+| 3 | Add the **JCSSE paper** (not just slides) | 5 min |
+| 4 | Write up the **6 thin projects** | ~2 hrs |
+| 5 | *(Optional)* `dristee-navigation` + `vit-autism-detection` write-ups | ~1 hr |
+
+**Items 1 and 2 are the real blockers.** Everything else — 12 rich projects, 3 papers, taxonomy,
+prose docs — already exists, which is why the corpus swap is mostly assembly rather than authoring.
+
+---
+
 ## 3. Code changes, file by file
 
 ### 3.1 `src/core/manifest.py` — replace `MANIFEST`
