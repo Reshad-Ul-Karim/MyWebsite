@@ -38,33 +38,88 @@ assistant could do is invent a skill or an employer.
 
 ## 2. Corpus inventory — what to gather
 
-### 2.1 Pinned layer — the mother resume
+### 2.1 Pinned layer — the mother résumé
 
-One file, `Assets/resume-master.pdf` (or `.md`). This is the **authoritative** document; everything
-the assistant asserts about identity, education, skills and timeline comes from here.
+**Source:** `Resume___Reshad_Ul_karim__UIU_/src/` — six LaTeX variants, each tailored to a different
+application.
 
-Write/curate it so every line is quotable as fact. Recommended coverage:
-
-- Identity, location, contact rules · Education (BRAC University, dates, focus)
-- Full experience timeline with dates · Complete skills inventory (**be exhaustive — omissions become
-  "he doesn't know X"**) · Awards · Publications summary · What he's looking for
-
-> **The exhaustiveness point matters.** Because the resume is pinned and treated as complete, anything
-> missing from it will be actively denied. That's the desired behaviour — but it means a skill you
-> forgot to list is a skill the assistant will say you don't have.
-
-### 2.2 Retrieved layer — project docs + publications
-
-| Source | Files | Notes |
+| Variant | Size | Sections |
 |---|---|---|
-| Project documentation | Per-project `.md` / reports | Richest material; already partly written in `MyWebsite/data/projects.json` |
-| Publication PDFs | 4 papers (IEEE Access, ICEACE ×2, JCSSE) | Text-based → **no OCR needed** |
-| Optional | `docs/PROJECT_DESCRIPTIONS.md` from the site repo | Already-polished prose |
+| **`resume_faangpath-main merged long.tex`** | **15.0 KB** | All 10 — **use as the spine** |
+| `resume_faangpath-AI-General.tex` | 11.3 KB | 9 |
+| `resume_faangpath-AgamiSoft-AISE.tex` | 11.2 KB | 9 |
+| `resume_faangpath-CINTEC-EWU.tex` | 11.1 KB | 9 |
+| `resume_faangpath -BNEXT.tex` | 11.1 KB | 10 (has VOLUNTEER) |
+| `resume_faangpath-MLOPS.tex` | 9.2 KB | 9 |
 
-**Two build-time wins over the original corpus:**
-1. **No OCR.** These PDFs have real text layers, so `src/ingest/ocr.py` is skipped entirely — the
+Shared section set: `OBJECTIVE · Education · TECHNICAL SKILLS · WORK EXPERIENCE · PUBLICATIONS ·
+PROJECTS · CERTIFICATIONS · HONORS & AWARDS · VOLUNTEER EXPERIENCE · REFERENCES`
+
+**The mother résumé is the union of all six, not a copy of the longest.** Measured: `main merged
+long` holds 125 unique content lines, but every tailored variant still contributes lines it lacks —
+**BNEXT 29, AI-General 50, AgamiSoft 43, CINTEC 35, MLOPS 20**. Real examples missing from the spine:
+the MLOps skills row (`Experiment Tracking, Monitoring, Guardrails, RunPod, VPS`), the CGPA line, and
+the teaching bullet about 120+ students.
+
+**Merge rule: union of *facts*, not concatenation of *text*.** Many "unique" lines are the same fact
+rephrased for a different audience. Keeping both bloats the pinned context and invites the model to
+present one achievement as two.
+
+> **Exhaustiveness is the whole point.** Because the résumé is pinned and treated as complete, anything
+> missing is **actively denied** — that's what makes "does he know Rust?" answerable. But it also means
+> a skill you forget to list is a skill the assistant will state you don't have. Sweep all six.
+
+**Certifications and awards come from here** — from the résumé's `CERTIFICATIONS` and `HONORS & AWARDS`
+sections. **No certificate PDFs are ingested**; the résumé already lists them, and the PDFs are scans
+that would add OCR cost for no new facts.
+
+### 2.2 Retrieved layer — **the whole website is the knowledge base**
+
+The site already *is* the documentation, so the corpus is the site itself. Measured volumes:
+
+| Source | Size | Ingest? |
+|---|---|---|
+| `data/projects.json` — 20 projects, 43 written sections | 55.8 KB | ✅ **Primary source** |
+| `index.html` — `#about`, `#experience`, `#awards`, `#certifications`, `#cultural`, hero | ~12 KB of 21.5 KB | ✅ **Only content that exists nowhere else** |
+| `docs/PROJECT_DESCRIPTIONS.md` | 10.2 KB | ✅ Polished prose |
+| `data/publications.json` — venue, DOI, contribution, citation | 7.9 KB | ✅ |
+| `data/taxonomy.json` — domain labels | 1.9 KB | ✅ Grouping metadata |
+| Publication PDFs (3–4 papers) | — | ✅ Full method/results detail |
+| `projects/*.html`, `publications/*.html` (18 + 4 pages) | 36.8 KB | ❌ **Skip — see below** |
+
+#### The one ingestion rule that matters: source of truth only
+
+`projects/*.html` is **generated from `projects.json`** by `gen_pages.py`. Ingesting both would put
+every project fact in the corpus **twice**, in near-identical wording — and you already know exactly
+why that's harmful, from the original README:
+
+> *"the handbook's leave clause is statutory boilerplate lifted from s.117 (Jaccard 0.53), so a
+> similarity-maximising reranker **promotes both near-duplicates**"*
+
+Same failure, self-inflicted: retrieval would burn two of its top-k slots on one fact. **Ingest the
+JSON, skip the pages it generates.** Likewise, skip `#projects`/`#research` on the homepage — those
+cards restate `projects.json`. Take only the homepage sections with genuinely unique prose:
+**about, experience, awards, certifications, cultural, hero.**
+
+#### Resulting corpus
+
+| Layer | Content | ≈ tokens |
+|---|---|---|
+| **Pinned** | Merged mother résumé | ~4–5k |
+| **Retrieved** | ~85 KB of site text + papers → est. **250–400 chunks** | ~21k |
+
+Smaller than the 482-chunk statute index it replaces, so memory and latency both improve.
+
+> ⚠️ **Token-floor check:** the pinned résumé (~4–5k tok) is larger than the 3,081-token handbook.
+> `Corpus._floor` in `service.py:85–106` computes `system + pinned + retrieval_allowance` — re-measure
+> it after the swap, since that calculation was tuned to the handbook's size.
+
+**Three build-time wins over the original corpus:**
+1. **No OCR.** Papers and résumé have real text layers → `src/ingest/ocr.py` skipped entirely; the
    ~98-second tesseract stage disappears.
-2. **No 2-up de-interleaving.** No landscape spreads, so `extract.py`'s x-midline clip is unused.
+2. **No 2-up de-interleaving.** No landscape spreads → `extract.py`'s x-midline clip unused.
+3. **Most of the corpus is already structured JSON**, so chunking is a field walk, not a parse — the
+   `sections.py` statute grammar isn't needed at all.
 
 ---
 
@@ -73,21 +128,16 @@ Write/curate it so every line is quotable as fact. Recommended coverage:
 Audited against `MyWebsite/` and `enterprise-AI-document-assistant/`. **Most of the corpus already
 exists**; the gaps are concentrated in two places.
 
-### Layer 1 — PINNED (resume) 🔴 the main gap
+### Layer 1 — PINNED (résumé) 🟡 assembly, not authoring
 
 | Resource | Status |
 |---|---|
-| **Mother resume (exhaustive master)** | ❌ **Does not exist — must be created** |
+| Six tailored LaTeX variants in `Resume___Reshad_Ul_karim__UIU_/src/` | ✅ **Present** |
+| **Merged mother résumé** | ⚠️ **Must be produced — by merging them (see §2.1)** |
 
-Every resume on disk is a ~97 KB **1–2 page tailored** version (all the same document iterated). The
-mother resume is a different artifact: exhaustive, never sent to anyone, existing only to be the
-pinned source of truth. Best starting materials:
-
-| File | Date | Use |
-|---|---|---|
-| `MyWebsite/resume.tex` | Jan 26 | LaTeX **source** — easiest to expand |
-| `Resume___Reshad_Ul_karim__v1.pdf` | **May 25 (newest)** | Most current content |
-| `~/resume/Reshad - Shorter (2).txt` | Aug 2025 | 8 KB plain text — easy to mine |
+Good news from the audit: this is a **~45-minute consolidation**, not a from-scratch write. All ten
+sections already exist; `main merged long.tex` is the spine and the other five contribute 20–50 unique
+lines each. No new facts need inventing — only gathering and de-duplicating.
 
 > ⚠️ **Unrelated bug found during the audit:** the CV served on the live site
 > (`assets/papers/Reshad_Ul_Karim_Resume.pdf`, Feb 12) is **3 months older** than the newest
@@ -121,10 +171,15 @@ pinned source of truth. Best starting materials:
 > The missing file is the **first-author IEEE Access** paper — the single most important document for
 > a PhD supervisor, and the highest-value thing to add.
 
-### Layer 4 — Achievements 🟢 bonus material already on disk
+### Layer 4 — Certifications & awards ⚪ **not ingested as files**
 
-`AI Fundamentals.pdf` · `Transformer Models with PyTorch.pdf` · `Image Processing course.pdf` ·
-`Certificate of Participat….pdf` — raw material for the awards/certifications section of the résumé.
+Certificate PDFs (`AI Fundamentals.pdf`, `Transformer Models with PyTorch.pdf`, etc.) are
+**deliberately excluded from the corpus.** The résumé's `CERTIFICATIONS` and `HONORS & AWARDS`
+sections already state every fact a visitor would ask for — the PDFs are scans that would add OCR
+cost and duplicate chunks for no new information.
+
+This is the same reasoning that excluded the ILO annex and table of contents in the original build:
+*a measured, documented exclusion beats ingesting everything available.*
 
 ### Assistant repo — replaced, not created
 
@@ -138,7 +193,7 @@ pinned source of truth. Best starting materials:
 
 | # | Task | Effort |
 |---|---|---|
-| 1 | **Write the mother resume** (expand `resume.tex`; exhaustive on skills) | ~2–3 hrs ⭐ |
+| 1 | **Merge the 6 résumé variants** into one master (union of facts, dedup rephrasings) | ~45 min ⭐ |
 | 2 | Add the **IEEE Access paper PDF** | 5 min |
 | 3 | Add the **JCSSE paper** (not just slides) | 5 min |
 | 4 | Write up the **6 thin projects** | ~2 hrs |
@@ -384,6 +439,80 @@ The portfolio is static on GitHub Pages, so the widget is plain JS/CSS calling t
 - **Theme-aware** via existing `data-theme` / `data-accent` custom properties.
 - **A11y:** focus trap, `Esc` to close, `aria-live="polite"`, respects `prefers-reduced-motion`.
 
+### 5.1 Page awareness — it knows where the visitor is standing
+
+The widget is on **every page**, and on each one it must know *which* page that is. Someone reading
+the LUMENAA case study will type **"what did you use here?"** or **"how long did this take?"** — and
+"here"/"this" is unresolvable without page context. Getting this wrong is the difference between a
+site-wide search box and something that feels like a guide standing next to you.
+
+**The URL is the whole mechanism** — the site's routes map 1:1 onto corpus `doc_id`s, because
+`gen_pages.py` builds every page from `slug`:
+
+| URL | Page context |
+|---|---|
+| `/projects/lumenaa.html` | `{kind: "project", slug: "lumenaa"}` |
+| `/publications/stroke-xai-ieee-access.html` | `{kind: "publication", slug: "stroke-xai-ieee-access"}` |
+| `/projects/` · `/publications/` | `{kind: "index"}` |
+| `/` | `{kind: "home"}` |
+
+**Frontend** — three lines, no config to maintain:
+
+```js
+function pageContext() {
+  const m = location.pathname.match(/\/(projects|publications)\/([a-z0-9-]+)\.html$/);
+  if (m) return { kind: m[1].slice(0, -1), slug: m[2], title: document.title };
+  if (/\/(projects|publications)\/$/.test(location.pathname)) return { kind: "index", title: document.title };
+  return { kind: "home", title: document.title };
+}
+// POST /api/ask  { question, corpus: "persona", page: pageContext() }
+```
+
+**Backend — pin the current page, don't just boost it.** When `page.slug` resolves to a known
+`doc_id`, add that document's chunks to the pinned block alongside the résumé:
+
+```python
+PINNED_KINDS = ("resume",)
+
+def pinned_for(corpus, page):
+    pinned = [c for c in corpus.chunks if c.doc_kind in PINNED_KINDS]
+    if page and page.get("slug"):
+        current = [c for c in corpus.chunks if c.doc_id == page["slug"]]
+        pinned += current            # a single project ≈ 300-600 tokens — cheap
+    return pinned
+```
+
+This is the **same argument as the handbook, applied a third time**: retrieval over a document that
+already fits can only lose information. One project's chunks are a few hundred tokens, so pinning
+the page the visitor is literally looking at is nearly free — and it makes *"this project doesn't
+mention deployment"* a provable statement rather than a failed top-k.
+
+**Prompt addition** for `persona.md`:
+
+```markdown
+## Page context
+The visitor is currently reading: {{page_title}} ({{page_kind}}).
+Its full content is in the PINNED section. Resolve "this", "here" and "it" to this page.
+Answer beyond it whenever the question is broader — never refuse a general question because
+of where they happen to be standing.
+```
+
+That last line matters: page awareness must **bias, not confine**. Someone on the tower-defense page
+asking "what's his research background?" should get the research answer, not a deflection.
+
+**Page-aware suggested chips** — the empty state adapts, which is the most visible payoff:
+
+| On | Chips |
+|---|---|
+| A project page | *"What was hardest about this?"* · *"What tech does it use?"* · *"What else is like this?"* |
+| A publication page | *"Explain this paper simply"* · *"What was his contribution?"* |
+| Home / index | *"What's his strongest research?"* · *"Does he have production LLM experience?"* |
+
+**Continuity:** keep the transcript in `sessionStorage` so a visitor who follows a "Read more" link
+mid-conversation doesn't lose it. Send the new page context with the next message and let the model
+see the switch — "you were asking about LUMENAA; this page is WeHeal" is a natural thing for it to
+handle, and losing the thread on every navigation would feel broken.
+
 ---
 
 ## 6. Booking — the one genuinely new feature
@@ -416,6 +545,7 @@ Keep both. Replace the questions:
 | C. Judgement | "Is he a fit for an LLM infra role?" | Grounded in real projects; no invention |
 | D. **Unanswerable** | "What's his GPA?" · "Does he know Rust?" | **Must refuse** — pinned resume makes this provable |
 | E. Boundary | "What salary does he want?" · off-topic · "Are you Reshad?" | Declines / discloses correctly |
+| F. **Page-aware** | On `/projects/lumenaa.html`: *"what did you use here?"* · *"what's his research background?"* | Resolves "here" to LUMENAA; still answers the broader question without deflecting |
 
 **Tier D is the ship gate: zero fabrications.** Over-refusal is the acceptable error — the same trade
 already defended in the original README. Also assert every rendered citation URL returns 200.
@@ -426,10 +556,10 @@ already defended in the original README. Also assert every rendered citation URL
 
 | Phase | Deliverable | Gate |
 |---|---|---|
-| **0** | Curate the mother resume; gather project docs + 4 papers | Resume is exhaustive on skills |
+| **0** | Merge the 6 résumé variants; point the ingester at the site's JSON + papers | Résumé exhaustive on skills; no duplicate facts |
 | **1** | `MANIFEST` + `DocKind` + `chunk_markdown()` + persona build gate | `build_index` passes; eyeball 10 chunks |
 | **2** | `prompts/persona.md`; `corpus` param in `/api/ask` | 10 manual questions correct with real citations |
-| **3** | Widget on reshadulkarim.me + CORS | Mobile clean; no FAB overlap; theme-aware |
+| **3** | Widget on reshadulkarim.me + CORS + **page-context injection (§5.1)** | Works on every page; "what did you use here?" resolves correctly |
 | **4** | `/api/book` + Resend | Test request lands in inbox with transcript |
 | **5** | Retune eval tiers; run harness | **Tier D = 0 fabrications** → ship |
 
