@@ -2660,6 +2660,11 @@
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                         </div>
+                        <!-- Honeypot: hidden from real visitors via .form-honeypot (positioning.css-style
+                             visually-hidden), still fillable by a naive bot that fills every field. -->
+                        <div class="form-group form-honeypot" aria-hidden="true">
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>

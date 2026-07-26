@@ -5180,6 +5180,21 @@ section {
   margin-bottom: 1.5rem;
 }
 
+/* Honeypot: visually and semantically hidden from real visitors, still present (and
+   fillable by a naive bot that fills every field) in the DOM -- see #contact-form's submit
+   handler in script.js, which treats a non-empty value as a bot signal. */
+.form-honeypot {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .form-group input,
 .form-group textarea {
   width: 100%;

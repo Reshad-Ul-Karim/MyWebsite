@@ -411,29 +411,52 @@ function initTypingEffect() {
 }
 
 // ===== CONTACT FORM =====
+// Wired to the same POST /api/book endpoint the "Ask Reshad" widget's booking card uses
+// (see assistant-widget.js) -- both are the same underlying action, "get a message to
+// Reshad". This used to fake a 2-second spinner then claim success without sending
+// anything anywhere; found by actually reading the handler, not by testing the UI, since a
+// fake success looks identical to a real one from the visitor's side.
+function contactApiBase() {
+    return /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
+        ? 'http://localhost:8000'
+        : 'https://enterprise-ai-document-assistant-8baj.onrender.com';
+}
+
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Get form data
+
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
-        
-        // Validate form
-        if (validateForm(data)) {
-            // Show loading state
-            showFormLoading(true);
-            
-            // Simulate form submission (replace with actual submission logic)
-            setTimeout(() => {
+
+        if (!validateForm(data)) return;
+
+        showFormLoading(true);
+        const form = this;
+
+        fetch(contactApiBase() + '/api/book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: data.name,
+                email: data.email,
+                purpose: `[${data.subject}] ${data.message}`,
+                website: data.website || '' // honeypot
+            })
+        })
+            .then(function (res) {
+                if (!res.ok) throw new Error('bad status ' + res.status);
                 showFormLoading(false);
                 showFormSuccess();
-                this.reset();
-            }, 2000);
-        }
+                form.reset();
+            })
+            .catch(function () {
+                showFormLoading(false);
+                showFormErrors(['Something went wrong sending your message. Please try again, or email reshad.sazid@gmail.com directly.']);
+            });
     });
 }
 

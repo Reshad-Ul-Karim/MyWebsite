@@ -658,7 +658,11 @@
         window.clearTimeout(coldStartTimer);
         typingRow.parentNode.removeChild(typingRow);
         renderMessage('assistant', data.answer, data.citations);
-        transcript.push({ question: question, answer: data.answer });
+        // Stored (and later emailed via /api/book's recent_history, and sent back as history
+        // on the NEXT ask) with the <<BOOK>> marker stripped -- it's UI instruction syntax,
+        // not part of the answer, and leaking it into a booking email read by an actual
+        // human is a real, visible bug, not a cosmetic one. Same regex the display path uses.
+        transcript.push({ question: question, answer: data.answer.replace(BOOK_MARKER_RE, '').trim() });
         saveTranscript(transcript);
       })
       .catch(function () {
