@@ -163,11 +163,11 @@
 - **Source folder to grep (optional) →** 
 
 ### 17. WeHeal — All-in-One Healthcare Platform  `(weheal)`
-- status: **ready**  ·  current links: live
+- status: **ready**  ·  current links: live, pdf (preliminary SRS)
 - current blurb: Engineered an end-to-end telemedicine platform featuring OTP-secured authentication, role-based dashboards, appointment scheduling with video consultations, EMR and e-prescription management, emergency services, payment and insurance integration, online medicine and lab ordering, and feedback.
-- **Description →** 
-- **Metrics / results →** 
-- **Links to add (repo / live / video / pdf) →** 
+- **Description →** This is the original CSE470 Software Requirement Specification (SRS) for WeHeal — the preliminary planning report, kept as the project's design record. It scopes an all-in-one MERN-stack (MongoDB, Express, React, Node) healthcare web app for a four-person team on an 8–9 week Agile timeline, built around four user roles (patients, doctors, clinic staff, administrators) with one goal: find care, book it, and see it through (consultation, records, prescription, payment) in a single app, compliant with HIPAA/GDPR. Architecture is a three-layer MERN split (React presentation / Express-Node business logic + REST API / MongoDB persistence), gated by OTP auth and RBAC across ten planned feature areas (location-based clinic search, appointment scheduling with real-time doctor availability, WebRTC/Twilio telemedicine, EMR + e-prescriptions, emergency/ambulance booking, payment + insurance integration, medicine/lab ordering, feedback & ratings), with encryption at rest/in transit and a 99.9% uptime target specified from the outset. **The live site at weheal.live has since been upgraded well beyond this preliminary scope** — this document is the original plan, not the current feature set.
+- **Metrics / results →** N/A (this is a planning document, not a results report) — 99.9% uptime and encryption-at-rest/in-transit were targets specified in the SRS, not measured outcomes.
+- **Links to add (repo / live / video / pdf) →** pdf: `assets/papers/WeHeal -  CSE470 Project SRS.pdf` (added); live: weheal.live (already present)
 - **Source folder to grep (optional) →** 
 
 ### 18. Rakkhosh Must Die — Tower Defense Game  `(tower-defense-game)`

@@ -214,6 +214,15 @@
   justify-content: center;
   align-items: center;
 }
+
+/* GitHub + LinkedIn as one unit: flex-wrap on .hero-buttons wraps its DIRECT children, so
+   without this wrapper the two icon links could split across lines independently (observed:
+   LinkedIn alone on its own row). Grouping them means they wrap together or not at all. */
+.hero-social-group {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+}
 .btn.btn-icon {
   display: inline-flex;
   align-items: center;

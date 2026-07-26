@@ -1,0 +1,679 @@
+/* =====================================================================
+   ASK RESHAD — AI portfolio assistant widget styles.
+   Consumes the site's existing design tokens (--primary-color, --bg-primary,
+   --text-primary, --border-color, --shadow-large, --font-primary,
+   --border-radius, --transition-medium) so dark/light + accent theming is
+   free -- no separate color logic needed here.
+
+   PLACEMENT: the launcher takes the primary bottom-right slot; the existing
+   theme toggle (script.js's initThemeToggle, bottom:20px/right:20px) and the
+   accent switcher (#accent-switcher, bottom:84px) are pushed up via
+   !important -- safe because this stylesheet is linked LAST in every page's
+   <head>, so it wins the cascade at equal specificity without a specificity
+   war. See docs/AI_ASSISTANT_PLAN.md sec.5.
+   ===================================================================== */
+
+/* Follows the site's OWN switchable accent (blue/red/orange/mono, set by accent-theme.js as
+   --accent-primary-rgb/--accent-secondary-rgb/--accent-tertiary-rgb on <html>), rather than
+   a fixed palette -- the glass genie re-tints itself along with whatever accent the visitor
+   has chosen, instead of clashing with it. */
+:root {
+  --ask-glow-1-rgb: var(--accent-primary-rgb);
+  --ask-glow-2-rgb: var(--accent-tertiary-rgb);
+  --ask-glow-3-rgb: var(--accent-secondary-rgb);
+}
+
+.ask-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1200;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  color: #fff;
+  font-size: 1.35rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -6px 10px rgba(255, 255, 255, 0.08),
+    0 8px 28px rgba(var(--ask-glow-1-rgb), 0.45),
+    0 2px 14px rgba(var(--ask-glow-2-rgb), 0.3);
+  animation: askFabBob 5s ease-in-out infinite;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+/* Icon: gradient-filled glyph (text-clip trick) rather than a flat color, so it reads as
+   part of the same glass/glow identity as the button itself. */
+.ask-fab i {
+  background: linear-gradient(135deg, rgb(var(--ask-glow-1-rgb)), rgb(var(--ask-glow-2-rgb)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+/* Specular highlight -- the "glass" half of liquid glass: a soft bloom near the upper-left,
+   the way light catches the top of a glass sphere. */
+.ask-fab::before {
+  content: '';
+  position: absolute;
+  top: 8%;
+  left: 14%;
+  width: 55%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 72%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: askFabGlare 5s ease-in-out infinite;
+}
+
+/* Halo -- the "glare AROUND the icon": a soft rotating colour glow sitting behind the glass,
+   visible past its edge since .ask-fab has overflow:visible. */
+.ask-fab::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  z-index: -1;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgb(var(--ask-glow-1-rgb)), rgb(var(--ask-glow-2-rgb)), rgb(var(--ask-glow-3-rgb)), rgb(var(--ask-glow-1-rgb)));
+  filter: blur(11px);
+  opacity: 0.5;
+  animation: askFabHaloSpin 7s linear infinite;
+}
+
+/* "Genie" idle motion: a gentle liquid bob with squash/stretch, like the button is made of
+   something soft rather than rigid -- never so much that the launcher becomes distracting. */
+@keyframes askFabBob {
+  0%, 100% { transform: translateY(0) scale(1, 1) rotate(0deg); }
+  22%      { transform: translateY(-4px) scale(1.045, 0.955) rotate(-4deg); }
+  50%      { transform: translateY(1px) scale(0.97, 1.04) rotate(2deg); }
+  76%      { transform: translateY(-2px) scale(1.02, 0.98) rotate(-2deg); }
+}
+
+@keyframes askFabGlare {
+  0%, 100% { opacity: 0.6; transform: translate(0, 0) scale(1); }
+  50%      { opacity: 0.95; transform: translate(3px, -2px) scale(1.12); }
+}
+
+@keyframes askFabHaloSpin {
+  to { transform: rotate(360deg); }
+}
+
+.ask-fab:hover,
+.ask-fab:focus-visible {
+  animation-play-state: paused;
+  transform: scale(1.1);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -6px 10px rgba(255, 255, 255, 0.1),
+    0 10px 36px rgba(var(--ask-glow-1-rgb), 0.6),
+    0 4px 18px rgba(var(--ask-glow-2-rgb), 0.45);
+}
+
+.ask-fab:active {
+  transform: scale(0.94);
+}
+
+[data-theme="dark"] .ask-fab {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02));
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ask-fab-tooltip {
+  position: fixed;
+  right: 84px;
+  bottom: 34px;
+  z-index: 1200;
+  max-width: 190px;
+  padding: 0.5rem 0.85rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.ask-fab-tooltip--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Mirrored when the FAB has been dragged to the left edge (see initDrag() in the JS): the
+   popover reads FROM the fab outward, so it must sit on whichever side has room. */
+.ask-fab-tooltip--left {
+  right: auto;
+  left: 84px;
+  transform: translateX(-6px);
+}
+
+.ask-fab-tooltip--left.ask-fab-tooltip--visible {
+  transform: translateX(0);
+}
+
+.ask-hover-popover {
+  border-color: rgba(var(--ask-glow-1-rgb), 0.4);
+}
+
+/* Draggable FAB. Idle "genie" bob is paused while actively dragged so it doesn't fight the
+   pointer, and cursor/scale communicate that it's being picked up. */
+.ask-fab {
+  touch-action: none; /* so a vertical drag on mobile doesn't also scroll the page */
+}
+
+.ask-fab--dragging {
+  animation-play-state: paused !important;
+  cursor: grabbing;
+  transition: none;
+  transform: scale(1.06);
+}
+
+/* Push the pre-existing FABs up so the launcher owns the primary slot. */
+.theme-toggle {
+  bottom: 86px !important;
+}
+
+#accent-switcher {
+  bottom: 150px !important;
+}
+
+/* ---- Panel --------------------------------------------------------- */
+.ask-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 86px;
+  z-index: 1199;
+}
+
+/* Mirrored when the FAB has been dragged to the left edge -- the panel opens from
+   whichever side the visitor actually parked the launcher on. */
+.ask-panel--left {
+  right: auto;
+  left: 20px;
+}
+
+.ask-panel {
+  width: min(380px, calc(100vw - 40px));
+  max-height: min(600px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-large);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.ask-panel[hidden] {
+  display: none;
+}
+
+.ask-panel--open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-panel,
+  .ask-fab,
+  .ask-fab-tooltip {
+    transition: none !important;
+  }
+  .ask-fab,
+  .ask-fab::before,
+  .ask-fab::after {
+    animation: none !important;
+  }
+}
+
+.ask-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(135deg, rgba(var(--ask-glow-1-rgb), 0.1), rgba(var(--ask-glow-2-rgb), 0.08));
+}
+
+.ask-panel-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ask-panel-title {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.ask-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+.ask-panel-clear,
+.ask-panel-close {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.ask-panel-clear {
+  font-size: 0.85rem;
+}
+
+.ask-panel-clear:hover,
+.ask-panel-close:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.ask-messages {
+  flex: 1;
+  min-height: 160px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ask-message {
+  display: flex;
+  flex-direction: column;
+}
+
+.ask-message--user {
+  align-items: flex-end;
+}
+
+.ask-message--assistant {
+  align-items: flex-start;
+}
+
+.ask-bubble {
+  max-width: 88%;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.9rem;
+  font-family: var(--font-secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.ask-bubble p {
+  margin: 0 0 0.5em;
+}
+
+.ask-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.ask-bubble strong {
+  font-weight: 700;
+}
+
+.ask-bubble code {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 0.3em;
+  font-size: 0.85em;
+}
+
+[data-theme="dark"] .ask-bubble code {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ask-message--assistant .ask-bubble a {
+  color: rgb(var(--ask-glow-1-rgb));
+  text-decoration: underline;
+}
+
+.ask-message--user .ask-bubble a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.ask-message--user .ask-bubble {
+  background: linear-gradient(135deg, rgb(var(--ask-glow-1-rgb)), rgb(var(--ask-glow-2-rgb)));
+  color: #fff;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.ask-message--assistant .ask-bubble {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-bottom-left-radius: 0.25rem;
+}
+
+/* Typing indicator: a soft shimmer sweep behind gradient-glowing dots, replacing the plain
+   bounce -- reads as "composing", matching the glass/glow identity of the launcher. */
+.ask-message--typing .ask-bubble {
+  background: linear-gradient(
+    100deg,
+    var(--bg-secondary) 0%,
+    rgba(var(--ask-glow-1-rgb), 0.14) 45%,
+    rgba(var(--ask-glow-2-rgb), 0.14) 55%,
+    var(--bg-secondary) 100%
+  );
+  background-size: 220% 100%;
+  animation: askShimmerSweep 1.9s ease-in-out infinite;
+}
+
+@keyframes askShimmerSweep {
+  0%   { background-position: 160% 0; }
+  100% { background-position: -60% 0; }
+}
+
+.ask-typing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.ask-cold-start-label {
+  font-family: var(--font-secondary);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  animation: askFadeIn 0.4s ease both;
+}
+
+@keyframes askFadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ask-typing-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0.7rem 0.9rem 0.2rem;
+}
+
+.ask-typing-wrap .ask-cold-start-label {
+  padding: 0 0.9rem 0.6rem;
+}
+
+.ask-typing-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgb(var(--ask-glow-1-rgb)), rgb(var(--ask-glow-2-rgb)));
+  box-shadow: 0 0 6px rgba(var(--ask-glow-1-rgb), 0.6);
+  animation: askTypingPulse 1.2s ease-in-out infinite;
+}
+
+.ask-typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+.ask-typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes askTypingPulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.45; }
+  40%           { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-typing-dots span,
+  .ask-message--typing .ask-bubble {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
+.ask-citations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  max-width: 88%;
+}
+
+.ask-citation-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  text-decoration: none;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+a.ask-citation-chip:hover {
+  border-color: rgb(var(--ask-glow-1-rgb));
+  color: rgb(var(--ask-glow-1-rgb));
+}
+
+.ask-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem 0.6rem;
+}
+
+/* Equal specificity to the UA's own `[hidden]{display:none}`, and this stylesheet loads
+   after it -- without this rule, `.ask-chips{display:flex}` above wins the cascade and
+   chipsEl.hidden=true silently does nothing (caught by screenshotting the widget after
+   asking a question: the chips were still visible under the error message). */
+.ask-chips[hidden] {
+  display: none;
+}
+
+.ask-chip {
+  font-family: var(--font-secondary);
+  font-size: 0.76rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.ask-chip:hover {
+  border-color: rgb(var(--ask-glow-1-rgb));
+  transform: translateY(-1px);
+}
+
+.ask-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.ask-input {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 1.2rem;
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-secondary);
+  font-size: 0.86rem;
+  outline: none;
+}
+
+.ask-input:focus {
+  border-color: var(--primary-color);
+}
+
+.ask-send {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.ask-send:hover {
+  transform: scale(1.06);
+}
+
+/* ---- Booking card ---------------------------------------------------- */
+.ask-booking-card {
+  margin-top: 0.6rem;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-primary);
+}
+
+.ask-booking-title {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin: 0 0 0.2rem;
+}
+
+.ask-booking-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: var(--font-secondary);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+.ask-booking-card input,
+.ask-booking-card textarea {
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-secondary);
+  font-size: 0.82rem;
+  resize: vertical;
+}
+
+/* Honeypot: visually and semantically hidden from real visitors, still
+   present (and fillable by a naive bot that fills every field) in the DOM. */
+.ask-booking-honeypot {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ask-booking-submit {
+  align-self: flex-start;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.45rem 1rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ask-booking-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ask-booking-status {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin: 0;
+  min-height: 1em;
+}
+
+/* ---- Mobile ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .ask-fab {
+    right: 15px;
+    bottom: 20px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .theme-toggle {
+    bottom: 86px !important;
+  }
+
+  #accent-switcher {
+    bottom: 150px !important;
+  }
+
+  .ask-fab-tooltip {
+    right: 74px;
+    bottom: 30px;
+  }
+
+  .ask-panel {
+    right: 8px;
+    left: 8px;
+    bottom: 80px;
+    width: auto;
+    max-height: min(70vh, 560px);
+  }
+}
+
+/* Mono accent's DARK-mode variant flips --accent-primary-rgb/--accent-tertiary-rgb to
+   near-white (the site's own buttons switch to dark text on it for the same reason -- see
+   accent-theme.css's html[data-accent="mono"][data-theme="dark"] .btn-primary rule). Every
+   place this widget puts white TEXT directly on an --ask-glow gradient needs the same
+   flip, or it's white-on-near-white -- reported live, not caught by review, since it only
+   shows up in this one accent+theme combination. */
+[data-accent="mono"][data-theme="dark"] .ask-send,
+[data-accent="mono"][data-theme="dark"] .ask-message--user .ask-bubble,
+[data-accent="mono"][data-theme="dark"] .ask-booking-submit {
+  color: #0a0a0a;
+}
+
+[data-accent="mono"][data-theme="dark"] .ask-message--user .ask-bubble a {
+  color: #0a0a0a;
+  text-decoration-color: rgba(10, 10, 10, 0.5);
+}

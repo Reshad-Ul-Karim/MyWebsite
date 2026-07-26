@@ -515,6 +515,16 @@
       "Computer vision",
       "Real-time inference",
       "Vision-guided autonomy"
+    ],
+    "sections": [
+      {
+        "title": "Overview",
+        "body": "Part of the BRACU Mongol-Tori Mars Rover team's vision-guided autonomy work, this prototype lets the rover's onboard vision system find and read a physical keyboard so commands can be entered without a human aiming a camera by hand — a small piece of the same object-detection and autonomous-vision pipeline that improved the rover's on-board inference performance by up to 30% for the University Rover Challenge."
+      },
+      {
+        "title": "Approach",
+        "body": "A YOLOv8 model handles real-time keyboard detection in the camera frame, and PaddleOCR reads the individual keys once the keyboard region is localized, so the system knows both where a key is and what it says. Detected key positions are angle-mapped to the rover arm's reference frame so a keypress can be executed as a physical motion rather than just a bounding box."
+      }
     ]
   },
   {
@@ -572,6 +582,20 @@
       "PPG signal processing",
       "Feature engineering",
       "Multi-class classification"
+    ],
+    "sections": [
+      {
+        "title": "Overview",
+        "body": "Full sleep staging normally means an overnight polysomnography (PSG) test — EEG, EOG, EMG, heart rate and breathing all recorded in a lab, accurate but expensive, single-night-only, and impractical to repeat (roughly 93.6% of sleep centers had to shift to telemedicine during COVID). This IEEE ICEACE 2024 work — published as two papers, a baseline study and this explainable-AI follow-up — tests whether a single low-cost photoplethysmography (PPG) sensor, the kind already in a fitness wearable, can classify sleep into four stages (Wake, Light, Deep, REM) well enough to be a practical at-home alternative."
+      },
+      {
+        "title": "Approach",
+        "body": "Using PPG and polysomnography recordings from 10 patients with sleep-disordered breathing (Charité Hospital, Berlin), the pipeline segments overnight signal into 9,428 thirty-second epochs, engineers 84 PPG-derived features and statistically prunes them to 72, then trains four classifiers — SVM, Random Forest, XGBoost and CatBoost. Explainable AI is applied not just for interpretability but as a feature-selection step: built-in feature importance for the tree ensembles and permutation importance for SVM rank every feature, and each model is retrained on only its own top-ranked subset."
+      },
+      {
+        "title": "Results",
+        "body": "The XAI-pruned models beat their full-feature counterparts on every metric while using far fewer features: CatBoost reached 75.54% accuracy (F1 0.75, Cohen's κ 0.59) with only 42 of the original 72 features, and XGBoost reached the best overall accuracy at 75.93% with 56 features. Both beat the best prior single-sensor PPG baseline evaluated on the same 10-subject dataset (Motin et al., 2023, ~70–72%). The finding: cutting model complexity nearly in half didn't cost accuracy — it improved it, because the XAI-selected features were carrying the real signal."
+      }
     ]
   },
   {
@@ -623,6 +647,16 @@
       "Full-stack web",
       "Relational DB design",
       "CRUD / auth"
+    ],
+    "sections": [
+      {
+        "title": "Overview",
+        "body": "Matrimonial Hub is a matchmaking platform built for CSE370 (Database Systems) with SQL, PHP, JavaScript and AJAX, and it won 1st place in the course competition. Rather than a simple listings site, it treats the database as the hard part: encrypted passwords and chat messages, and a dynamic, AJAX-driven search that narrows candidates smoothly as filters change."
+      },
+      {
+        "title": "Approach",
+        "body": "The backend is a relational MySQL schema accessed through PHP, with AJAX calls handling search and messaging without full page reloads so the matching experience stays responsive. Security was treated as a first-class requirement rather than an add-on — user passwords and in-app chat messages are encrypted — and the team explicitly worked through error handling and edge cases (malformed input, missing fields, invalid searches) to keep the system robust rather than just demo-ready."
+      }
     ]
   },
   {
@@ -657,7 +691,7 @@
     "links": {
       "github": null,
       "youtube": null,
-      "pdf": null,
+      "pdf": "assets/papers/WeHeal -  CSE470 Project SRS.pdf",
       "paper": null,
       "poster": null,
       "live": "https://weheal.live/"
@@ -675,6 +709,20 @@
       "Video consultation",
       "Full-stack architecture",
       "Auth / state management"
+    ],
+    "sections": [
+      {
+        "title": "Overview",
+        "body": "This is the original CSE470 Software Requirement Specification (SRS) for WeHeal — the preliminary planning report, kept here as the project's design record. It scopes an all-in-one MERN-stack (MongoDB, Express, React, Node) healthcare web app for a four-person team on an 8–9 week Agile timeline, built around four user roles — patients, doctors, clinic staff, and administrators — with one goal: find care, book it, and see it through (consultation, records, prescription, payment) in a single app, compliant with HIPAA/GDPR data-privacy requirements. The live site at weheal.live has since been upgraded well beyond this preliminary scope; this document reflects the original plan, not the current feature set."
+      },
+      {
+        "title": "Planned architecture",
+        "body": "The specified architecture is a straightforward three-layer MERN split — React for presentation, Express/Node for business logic behind a RESTful API, MongoDB for persistence — chosen for horizontal scalability and a single-language stack across the whole team. OTP-based authentication and role-based access control (RBAC) were specified to gate ten planned feature areas: location-based clinic search, appointment scheduling with real-time doctor availability, WebRTC/Twilio telemedicine calls, EMR and e-prescription management, emergency/ambulance booking, payment and insurance integration, medicine and lab ordering, and a feedback/ratings system — with encryption at rest and in transit, and a 99.9% uptime target, specified as non-functional requirements from the outset."
+      },
+      {
+        "title": "Scope note",
+        "body": "As specified, none of the ten feature areas were optional in the SRS — appointment reschedule/cancel, a virtual queue for walk-in patients, in-app doctor–patient messaging, and a loyalty/referral rewards system were all written into the functional requirements alongside the headline telemedicine and EMR features. What actually shipped is best judged from the live deployment rather than this document; it's included here as the original planning artifact."
+      }
     ]
   },
   {
@@ -815,6 +863,20 @@
       "Bilingual next-word prediction",
       "Real-time gesture recognition",
       "Human-computer interaction"
+    ],
+    "sections": [
+      {
+        "title": "Overview",
+        "body": "Touchless typing tends to trade off against itself: enough gestures to be useful and it gets confused by lighting or hand shape, fast enough to feel responsive and it drops accuracy, or it supports one language and locks out Bangla speakers. This project (IEEE JCSSE 2026) builds one real-time pipeline that handles keyboard typing, mouse control and bilingual English/Bangla next-word prediction from a plain USB webcam, with no wearable hardware."
+      },
+      {
+        "title": "Approach",
+        "body": "Gesture recognition is deliberately non-probabilistic: MediaPipe extracts 21 hand landmarks per frame, and each finger's extension state is read directly from the ratio of fingertip-to-base versus base-to-palm distance, packed into a 4-bit code — cheap enough to classify in under 0.03 ms. Nine gestures cover both interaction modes: a sustained 'v' drives the mouse cursor, grab/open-hand/click gestures handle clicks and drag-and-drop, and a debounced 'pinky-down' registers keyboard keystrokes. Typed text is completed by a two-layer LSTM (128 units, 64-dim embeddings) trained separately on English (Project Gutenberg) and Bangla (Kaggle) corpora, with automatic language detection switching between them and HarfBuzz/PyQt5 handling correct Bangla glyph rendering."
+      },
+      {
+        "title": "Results",
+        "body": "All nine gestures were recognized at ≥97.3% accuracy (100% for grab and open-hand) across five hardware platforms — from a 4th-gen Intel i5 to an Apple M2 — sustaining up to 37.7 FPS. The English LSTM reached 97.0% top-1 accuracy (perplexity 1.15) and Bangla 97.2% (perplexity 1.10), giving character error rates of 3.43% and 8.34% respectively. A seven-condition lighting sweep (50–2000 lux, including backlit and flickering light) held accuracy above 90% throughout, with only a 6.6-point drop in the worst case — the robustness prior single-condition systems in this space were missing."
+      }
     ]
   },
   {
@@ -858,11 +920,29 @@
       "live": null
     },
     "relatedPublications": [],
-    "detailStatus": "coming-soon",
+    "detailStatus": "ready",
     "seo": {
       "description": "DRISTEE: a real-time cloud-based navigation assistant for visually impaired users combining depth-aware mapping, object/face detection, and voice-command NLP.",
       "ogImage": null
-    }
+    },
+    "sections": [
+      {
+        "title": "The idea",
+        "body": "DRISTEE (Depth-aware Recognition and Intelligent Scene Translation for Enhanced Engagement) is a real-time, cloud-assisted navigation assistant for visually impaired users, built under BRAC University's Research Seed Grant Initiative 2025. It fuses depth-aware scene mapping, object detection and facial recognition with voice-command NLP in a modular architecture, aiming to give a user personalized, low-latency spatial awareness — what's ahead, how far, and who's nearby — through natural spoken interaction rather than a screen."
+      },
+      {
+        "title": "Status",
+        "body": "The project is ongoing, spanning model integration, implementation, and academic writing, and the research has now been submitted for journal publication. Method and evaluation details are held back until the review process concludes."
+      }
+    ],
+    "skills": [
+      "Computer vision",
+      "Depth-aware scene mapping",
+      "Facial recognition",
+      "Voice-command NLP",
+      "Cloud-assisted processing",
+      "Modular system architecture"
+    ]
   },
   {
     "slug": "vit-autism-detection",
@@ -902,11 +982,29 @@
       "live": null
     },
     "relatedPublications": [],
-    "detailStatus": "coming-soon",
+    "detailStatus": "ready",
     "seo": {
       "description": "A Vision Transformer framework with multimodal fusion of facial and behavioral signals for early, interpretable Autism Spectrum Disorder screening in toddlers.",
       "ogImage": null
-    }
+    },
+    "sections": [
+      {
+        "title": "The idea",
+        "body": "Autism Spectrum Disorder screening today mostly depends on clinician-administered behavioral assessments, which are slow to access and unevenly available. This project builds a Vision Transformer (ViT) framework that fuses facial imaging with behavioral signal data into a single multimodal model, aiming at scalable, low-cost early screening for ASD in toddlers that could run outside a clinical setting."
+      },
+      {
+        "title": "Status",
+        "body": "The goal is an interpretable, low-friction screening tool rather than a diagnostic replacement — explainability matters here because a false negative or an opaque prediction in a pediatric health context has real consequences. The work is ongoing and has been submitted for journal publication; method and result details are held back until the review process concludes."
+      }
+    ],
+    "skills": [
+      "Vision Transformer (ViT)",
+      "Multimodal fusion",
+      "Facial imaging analysis",
+      "Behavioral signal modeling",
+      "Explainable / interpretable AI",
+      "Early screening / healthcare AI"
+    ]
   },
   {
     "slug": "wearable-fall-detection",
@@ -964,6 +1062,20 @@
       "Sensor fusion",
       "Fall detection",
       "Real-time SMS/Wi-Fi alerts"
+    ],
+    "sections": [
+      {
+        "title": "Overview",
+        "body": "About one in four adults over 65 falls each year, and most falls go unreported to a healthcare provider. Existing monitors are either fixed in place or need the user to press a button, which fails exactly when someone is incapacitated — and prolonged immobility after a fall ('long lies') is independently linked to hypothermia and higher mortality. This CSE360 team project (Reshad Ul Karim, Syeda Maliha Tabassum, Sammam Mahdi, Abrar Samin) builds a single wearable that continuously tracks vital signs and detects falls, then alerts both locally and remotely with no manual step required."
+      },
+      {
+        "title": "Approach",
+        "body": "A dual-Arduino master–slave split (Nano as master, Uno as slave) was the fix for a real constraint discovered during the build — a single Nano ran out of memory once sensors, GPS, GSM and a display were all wired in, so the Uno was carved off to own the OLED over I²C while the Nano handles sensing and communication. Four sensors feed it: LM35 (temperature), MAX30102 (heart rate/SpO2), a GSR sensor (skin-conductance stress), and an MPU6050 accelerometer/gyroscope for motion. Fall detection runs as a small state machine — IDLE → DESCENT → IMPACT → POST_IMPACT — that only confirms a fall after a sharp downward velocity, a high-g impact spike, and a period of post-impact stillness, which is what keeps a fast sit-down or a jump from tripping a false alarm. Confirmed falls and vital-sign anomalies trigger a buzzer/LED locally and an SMS with live GPS coordinates via a SIM800L module remotely, alongside a Wi-Fi JSON feed to a local server."
+      },
+      {
+        "title": "Results & engineering",
+        "body": "In simulated trials the system caught 45 of 50 falls (90% accuracy), with sensor error within clinically acceptable margins — temperature ±0.5°C, SpO2 ±2%, heart rate ±3 bpm. SMS alerts landed within 5–7 seconds of trigger, and GPS acquired a satellite lock in 35–60 seconds outdoors, accurate to 3–5 m (indoor lock was unreliable, a known limit of low-cost GPS receivers). Getting there meant solving real integration problems along the way: GSM and GPS sharing one supply caused voltage instability until a buck converter regulated it, the Nano's single hardware UART couldn't serve GPS and GSM at once until SoftwareSerial/AltSoftSerial split the load, and I²C address clashes were resolved by giving the OLED its own dedicated slave MCU. Built for about 5,800 BDT in components."
+      }
     ]
   },
   {

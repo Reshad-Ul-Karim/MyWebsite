@@ -141,11 +141,13 @@
     <link rel="stylesheet" href="fixes.css?v=1.0.0">
     <!-- modern-ui.css loads AFTER fixes.css: hero redesign + UI modernization win -->
     <link rel="stylesheet" href="modern-ui.css?v=1.0.0">
+    <link rel="stylesheet" href="assistant-widget.css?v=1.0.0">
 
     <!-- Modular motion scripts — self-initializing, load after core script.js -->
     <script src="reveal-motion.js?v=1.1.0" defer></script>
     <script src="morph-motion.js?v=1.0.0" defer></script>
     <script src="accent-theme.js?v=1.0.0" defer></script>
+    <script src="assistant-widget.js?v=1.0.0" defer></script>
     <script src="three-scene.js?v=1.2.0" defer></script>
     <script src="section-three.js?v=1.0.0" defer></script>
     <!-- Projects motion: flagship reel pin + cursor + magnetic + count-up.
@@ -257,12 +259,18 @@
                         <i class="fas fa-download"></i>
                         <span>Download CV</span>
                     </a>
-                    <a href="https://github.com/Reshad-Ul-Karim" class="btn btn-icon" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/reshad-ul-karim" class="btn btn-icon" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+                    <button type="button" class="btn btn-secondary" id="hero-ask-btn" onclick="var b=document.getElementById('ask-reshad-fab'); if(b) b.click();">
+                        <i class="fas fa-robot"></i>
+                        <span>Ask about me</span>
+                    </button>
+                    <div class="hero-social-group">
+                        <a href="https://github.com/Reshad-Ul-Karim" class="btn btn-icon" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/reshad-ul-karim" class="btn btn-icon" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
                 </div>
               </div>
             </div>
