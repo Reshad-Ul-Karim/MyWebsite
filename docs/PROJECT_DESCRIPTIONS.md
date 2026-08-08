@@ -10,7 +10,7 @@
 
 ## Agentic & Multimodal AI
 
-### 1. LUMENAA — Edge-Native Assistive Vision Agent  `(lumenaa)`
+### 1. Edge-Native Assistive Vision Agent  `(lumenaa)`
 - status: **coming-soon**  ·  current links: none
 - current blurb: An edge-native, agentic multimodal assistive vision agent for visually impaired users. A planner/router with tool use and vector memory orchestrates multi-LLM/VLM reasoning (Mistral, OpenRouter) with RAG-style retrieval, a structured evaluation harness, and anti-fabrication guardrails — running perc
 - **Description →** 
@@ -21,7 +21,7 @@
 
 ## Generative AI & LLMs
 
-### 2. HARP-RoPE — Rotary Positional Encoding for Long Contexts  `(harp-rope)`
+### 2. Hierarchical Rotary Positional Encoding for Long Contexts  `(harp-rope)`
 - status: **coming-soon**  ·  current links: none
 - current blurb: A novel hierarchically anchored rotary positional encoding for long and structured contexts. Pre-trained 160M and 420M-parameter LLMs from scratch in PyTorch with BF16 numerical-stability analysis.
 - **Description →** 
@@ -29,7 +29,7 @@
 - **Links to add (repo / live / video / pdf) →** 
 - **Source folder to grep (optional) →** 
 
-### 3. JuktiLLM — RL for Bangla Reasoning  `(juktillm)`
+### 3. RL for Bangla Mathematical Reasoning  `(juktillm)`
 - status: **coming-soon**  ·  current links: none
 - current blurb: Applied decoupled reward–policy optimization (reinforcement learning) to improve LLM mathematical reasoning in low-resource Bangla.
 - **Description →** 

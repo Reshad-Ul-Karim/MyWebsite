@@ -5,18 +5,18 @@
     <style>section[id]{scroll-margin-top:5rem}</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="HARP: an ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.">
+    <meta name="description" content="An ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.">
     <meta name="author" content="Reshad Ul Karim">
-    <title>HARP-RoPE — Rotary Positional Encoding for Long Contexts — Reshad Ul Karim</title>
+    <title>Hierarchical Rotary Positional Encoding for Long Contexts — Reshad Ul Karim</title>
     <link rel="canonical" href="https://reshadulkarim.me/projects/harp-rope.html">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://reshadulkarim.me/projects/harp-rope.html">
-    <meta property="og:title" content="HARP-RoPE — Rotary Positional Encoding for Long Contexts — Reshad Ul Karim">
-    <meta property="og:description" content="HARP: an ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.">
+    <meta property="og:title" content="Hierarchical Rotary Positional Encoding for Long Contexts — Reshad Ul Karim">
+    <meta property="og:description" content="An ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.">
     <meta property="og:image" content="https://reshadulkarim.me/profile%20picture.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="HARP-RoPE — Rotary Positional Encoding for Long Contexts — Reshad Ul Karim">
-    <meta name="twitter:description" content="HARP: an ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.">
+    <meta name="twitter:title" content="Hierarchical Rotary Positional Encoding for Long Contexts — Reshad Ul Karim">
+    <meta name="twitter:description" content="An ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.">
     <meta name="twitter:image" content="https://reshadulkarim.me/profile%20picture.jpg">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,14 +51,14 @@
         <a class="detail-back" href="index.html"><i class="fas fa-arrow-left"></i> All projects</a>
         <header class="detail-hero">
           <div class="detail-domain-tags"><span class="detail-domain-tag is-primary">Generative AI &amp; LLMs</span></div>
-          <h1 class="detail-title">HARP-RoPE — Rotary Positional Encoding for Long Contexts</h1>
+          <h1 class="detail-title">Hierarchical Rotary Positional Encoding for Long Contexts</h1>
           <div class="detail-status"><span class="detail-status-dot"></span> Ongoing</div>
-          <p class="detail-lead">HARP: an ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.</p>
+          <p class="detail-lead">An ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.</p>
           
         </header>
-        <img class="detail-cover" src="../assets/images/project-cards/harp-rope.jpg" alt="HARP-RoPE — hierarchical rotary positional encoding" loading="lazy" decoding="async">
+        <img class="detail-cover" src="../assets/images/project-cards/harp-rope.jpg" alt="Hierarchical rotary positional encoding" loading="lazy" decoding="async">
         <div class="detail-body">
-          <section class="detail-section"><h2 class="detail-section-title">The idea</h2><div class="detail-prose"><p>Transformers rely on positional encodings to sense word order and distance. The popular RoPE scheme packs local order, long-range distance and structure into one fixed global schedule — which recent analyses link to long-context retrieval failures and numerical fragility. HARP (Hierarchically Anchored Rotary Phases) is an ongoing project that instead factors a token's position into hierarchical coordinates — a coarse chunk index, a within-chunk offset and optional structure — each driving its own band of learnable phases, while leaving some channels unrotated as a content bypass.</p></div></section><section class="detail-section"><h2 class="detail-section-title">Why it&#x27;s promising</h2><div class="detail-prose"><p>HARP is set up to contain RoPE exactly as a special case, so training only departs from that strong baseline when it actually helps — and its design is meant to control the numerical error that plagues long-context models in BF16. It's being validated by pretraining 160M- and 420M-parameter models from scratch. (Full formulation is held back while the work is under submission.)</p></div></section><section class="detail-section"><h2 class="detail-section-title">Tech stack &amp; key skills</h2><p class="detail-prose">Core tools, methods and skills demonstrated in this project:</p><div class="detail-tags"><span class="tech-tag">LLM pretraining from scratch</span><span class="tech-tag">Positional encodings (RoPE)</span><span class="tech-tag">Transformer internals</span><span class="tech-tag">BF16 numerical stability</span><span class="tech-tag">PyTorch</span><span class="tech-tag">160M / 420M models</span></div></section><div class="detail-related"><a class="detail-back" href="index.html"><i class="fas fa-arrow-left"></i> Back to all projects</a></div>
+          <section class="detail-section"><h2 class="detail-section-title">The idea</h2><div class="detail-prose"><p>Transformers rely on positional encodings to sense word order and distance. The popular RoPE scheme packs local order, long-range distance and structure into one fixed global schedule — which recent analyses link to long-context retrieval failures and numerical fragility. This is an ongoing project that instead factors a token's position into hierarchical coordinates — a coarse chunk index, a within-chunk offset and optional structure — each driving its own band of learnable phases, while leaving some channels unrotated as a content bypass.</p></div></section><section class="detail-section"><h2 class="detail-section-title">Why it&#x27;s promising</h2><div class="detail-prose"><p>The design is set up to contain RoPE exactly as a special case, so training only departs from that strong baseline when it actually helps — and it is meant to control the numerical error that plagues long-context models in BF16. It's being validated by pretraining 160M- and 420M-parameter models from scratch. (Full formulation is held back while the work is under submission.)</p></div></section><section class="detail-section"><h2 class="detail-section-title">Tech stack &amp; key skills</h2><p class="detail-prose">Core tools, methods and skills demonstrated in this project:</p><div class="detail-tags"><span class="tech-tag">LLM pretraining from scratch</span><span class="tech-tag">Positional encodings (RoPE)</span><span class="tech-tag">Transformer internals</span><span class="tech-tag">BF16 numerical stability</span><span class="tech-tag">PyTorch</span><span class="tech-tag">160M / 420M models</span></div></section><div class="detail-related"><a class="detail-back" href="index.html"><i class="fas fa-arrow-left"></i> Back to all projects</a></div>
         </div>
       </article>
     </main>

@@ -280,7 +280,7 @@
   // static label once and go silent forever after.
   var HOVER_HINTS = [
     '🧠 Ask about his strongest research',
-    '⚡ Try: "What did he use in LUMENAA?"',
+    '⚡ Try: "What did he use in the assistive vision agent?"',
     '🔍 I only answer from his real CV & projects',
     '💬 Ask if he’s free for a call',
     '🎯 Try: "Does he have production LLM experience?"'

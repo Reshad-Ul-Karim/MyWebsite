@@ -285,7 +285,7 @@ encodes the statute-specific rule `printed = pdf_index - 16`. **Markdown project
 **Decision:** set both to `1` for markdown sources, keep real page extraction for the PDFs
 (resume, papers), and make the **citation renderer prefer `section_title` over page number**:
 
-> `Resume — Skills` · `LUMENAA — Results` · `IEEE Access paper — p.4`
+> `Resume — Skills` · `Assistive Vision Agent — Results` · `IEEE Access paper — p.4`
 
 That reads better than "p.1" everywhere, and it's a UI change, not an architectural one.
 `pagemap.py` is simply unused on the persona path.
@@ -442,7 +442,7 @@ The portfolio is static on GitHub Pages, so the widget is plain JS/CSS calling t
 ### 5.1 Page awareness — it knows where the visitor is standing
 
 The widget is on **every page**, and on each one it must know *which* page that is. Someone reading
-the LUMENAA case study will type **"what did you use here?"** or **"how long did this take?"** — and
+the assistive vision agent case study will type **"what did you use here?"** or **"how long did this take?"** — and
 "here"/"this" is unresolvable without page context. Getting this wrong is the difference between a
 site-wide search box and something that feels like a guide standing next to you.
 
@@ -510,7 +510,7 @@ asking "what's his research background?" should get the research answer, not a d
 
 **Continuity:** keep the transcript in `sessionStorage` so a visitor who follows a "Read more" link
 mid-conversation doesn't lose it. Send the new page context with the next message and let the model
-see the switch — "you were asking about LUMENAA; this page is WeHeal" is a natural thing for it to
+see the switch — "you were asking about the assistive vision agent; this page is WeHeal" is a natural thing for it to
 handle, and losing the thread on every navigation would feel broken.
 
 ---
@@ -541,11 +541,11 @@ Keep both. Replace the questions:
 | Tier | Example | Pass condition |
 |---|---|---|
 | A. Resume facts | "Where does he study?" | Correct, cited to the resume |
-| B. Project depth | "What did he use in LUMENAA?" | Correct + links to the right project page |
+| B. Project depth | "What did he use in the assistive vision agent?" | Correct + links to the right project page |
 | C. Judgement | "Is he a fit for an LLM infra role?" | Grounded in real projects; no invention |
 | D. **Unanswerable** | "What's his GPA?" · "Does he know Rust?" | **Must refuse** — pinned resume makes this provable |
 | E. Boundary | "What salary does he want?" · off-topic · "Are you Reshad?" | Declines / discloses correctly |
-| F. **Page-aware** | On `/projects/lumenaa.html`: *"what did you use here?"* · *"what's his research background?"* | Resolves "here" to LUMENAA; still answers the broader question without deflecting |
+| F. **Page-aware** | On `/projects/lumenaa.html`: *"what did you use here?"* · *"what's his research background?"* | Resolves "here" to the assistive vision agent; still answers the broader question without deflecting |
 
 **Tier D is the ship gate: zero fabrications.** Over-refusal is the acceptable error — the same trade
 already defended in the original README. Also assert every rendered citation URL returns 200.

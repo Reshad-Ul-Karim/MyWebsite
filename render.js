@@ -344,7 +344,7 @@
 
     // Filter bar: "All" + one chip per domain referenced by ANY project's
     // full domains[] (primary OR secondary), in taxonomy order — so a domain
-    // that is only ever secondary (e.g. healthcare-ai for LUMENAA) still gets
+    // that is only ever secondary (e.g. healthcare-ai for the assistive vision agent) still gets
     // a chip. Chip count = projects whose domains[] includes that id.
     var referenced = {};
     projects.forEach(function (p) {

@@ -1,8 +1,8 @@
 [
   {
     "slug": "lumenaa",
-    "title": "LUMENAA — Edge-Native Assistive Vision Agent",
-    "shortTitle": "LUMENAA",
+    "title": "Edge-Native Assistive Vision Agent",
+    "shortTitle": "Assistive Vision Agent",
     "status": "ongoing",
     "flagship": true,
     "weight": 100,
@@ -26,9 +26,9 @@
     "media": {
       "type": "image",
       "icon": "fas fa-lightbulb",
-      "label": "LUMENAA",
+      "label": "Assistive Vision Agent",
       "src": "assets/images/project-cards/lumenaa.jpg",
-      "alt": "LUMENAA — edge-native assistive vision agent"
+      "alt": "Edge-native assistive vision agent"
     },
     "metrics": [
       {
@@ -58,14 +58,14 @@
     "relatedPublications": [],
     "detailStatus": "ready",
     "seo": {
-      "description": "LUMENAA: an assistive vision-language agent for blind and low-vision users that runs on-device first, escalates to the cloud only when needed, and never fabricates a distance.",
+      "description": "An assistive vision-language agent for blind and low-vision users that runs on-device first, escalates to the cloud only when needed, and never fabricates a distance.",
       "ogImage": null
     },
     "badge": "Research",
     "sections": [
       {
         "title": "Overview",
-        "body": "LUMENAA is an assistive AI agent for blind and low-vision users. It describes what's ahead, reads labels and text, flags hazards, and remembers where objects were last seen — the kind of help that bears on independence and safety, not just convenience."
+        "body": "This is an assistive AI agent for blind and low-vision users. It describes what's ahead, reads labels and text, flags hazards, and remembers where objects were last seen — the kind of help that bears on independence and safety, not just convenience."
       },
       {
         "title": "The challenge",
@@ -73,11 +73,11 @@
       },
       {
         "title": "Approach",
-        "body": "LUMENAA is built around one idea: do the least the situation actually needs, and only claim what it can back up. It answers each request at the cheapest capable level on the device, and only reaches out to the cloud when the on-device answer genuinely isn't enough. On the trust side it never invents a distance — it states only what it can verify, hedges when it's unsure who or what it's looking at, and always voices hazards first."
+        "body": "The system is built around one idea: do the least the situation actually needs, and only claim what it can back up. It answers each request at the cheapest capable level on the device, and only reaches out to the cloud when the on-device answer genuinely isn't enough. On the trust side it never invents a distance — it states only what it can verify, hedges when it's unsure who or what it's looking at, and always voices hazards first."
       },
       {
         "title": "Results",
-        "body": "On 150 real questions written by blind users, LUMENAA handled about half of them fully on-device with no meaningful loss in accuracy. A lightweight visual memory means it rarely re-describes the same object, cutting repeat cloud calls by roughly 90%. An audit of every answer found zero invented distances — and these cost and safety guarantees held across five hardware tiers, from a desktop down to a 4-watt iPhone."
+        "body": "On 150 real questions written by blind users, it handled about half of them fully on-device with no meaningful loss in accuracy. A lightweight visual memory means it rarely re-describes the same object, cutting repeat cloud calls by roughly 90%. An audit of every answer found zero invented distances — and these cost and safety guarantees held across five hardware tiers, from a desktop down to a 4-watt iPhone."
       }
     ],
     "skills": [
@@ -93,8 +93,8 @@
   },
   {
     "slug": "harp-rope",
-    "title": "HARP-RoPE — Rotary Positional Encoding for Long Contexts",
-    "shortTitle": "HARP-RoPE",
+    "title": "Hierarchical Rotary Positional Encoding for Long Contexts",
+    "shortTitle": "Rotary Positional Encoding",
     "status": "ongoing",
     "flagship": false,
     "weight": 90,
@@ -116,9 +116,9 @@
     "media": {
       "type": "image",
       "icon": "fas fa-arrows-spin",
-      "label": "HARP-RoPE",
+      "label": "Rotary Positional Encoding",
       "src": "assets/images/project-cards/harp-rope.jpg",
-      "alt": "HARP-RoPE — hierarchical rotary positional encoding"
+      "alt": "Hierarchical rotary positional encoding"
     },
     "metrics": [],
     "links": {
@@ -132,18 +132,18 @@
     "relatedPublications": [],
     "detailStatus": "ready",
     "seo": {
-      "description": "HARP: an ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.",
+      "description": "An ongoing hierarchically-anchored rotary positional encoding for long-context transformers, validated by from-scratch pretraining of 160M/420M LLMs.",
       "ogImage": null
     },
     "badge": "Research",
     "sections": [
       {
         "title": "The idea",
-        "body": "Transformers rely on positional encodings to sense word order and distance. The popular RoPE scheme packs local order, long-range distance and structure into one fixed global schedule — which recent analyses link to long-context retrieval failures and numerical fragility. HARP (Hierarchically Anchored Rotary Phases) is an ongoing project that instead factors a token's position into hierarchical coordinates — a coarse chunk index, a within-chunk offset and optional structure — each driving its own band of learnable phases, while leaving some channels unrotated as a content bypass."
+        "body": "Transformers rely on positional encodings to sense word order and distance. The popular RoPE scheme packs local order, long-range distance and structure into one fixed global schedule — which recent analyses link to long-context retrieval failures and numerical fragility. This is an ongoing project that instead factors a token's position into hierarchical coordinates — a coarse chunk index, a within-chunk offset and optional structure — each driving its own band of learnable phases, while leaving some channels unrotated as a content bypass."
       },
       {
         "title": "Why it's promising",
-        "body": "HARP is set up to contain RoPE exactly as a special case, so training only departs from that strong baseline when it actually helps — and its design is meant to control the numerical error that plagues long-context models in BF16. It's being validated by pretraining 160M- and 420M-parameter models from scratch. (Full formulation is held back while the work is under submission.)"
+        "body": "The design is set up to contain RoPE exactly as a special case, so training only departs from that strong baseline when it actually helps — and it is meant to control the numerical error that plagues long-context models in BF16. It's being validated by pretraining 160M- and 420M-parameter models from scratch. (Full formulation is held back while the work is under submission.)"
       }
     ],
     "skills": [
@@ -157,8 +157,8 @@
   },
   {
     "slug": "juktillm",
-    "title": "JuktiLLM — RL for Bangla Reasoning",
-    "shortTitle": "JuktiLLM",
+    "title": "RL for Bangla Mathematical Reasoning",
+    "shortTitle": "Bangla Reasoning LLM",
     "status": "ongoing",
     "flagship": false,
     "weight": 85,
@@ -180,8 +180,8 @@
     "media": {
       "type": "image",
       "src": "assets/images/project-cards/jukti-llm.png",
-      "alt": "JuktiLLM — Bangla mathematical reasoning",
-      "label": "JuktiLLM",
+      "alt": "Bangla mathematical reasoning LLM",
+      "label": "Bangla Reasoning LLM",
       "icon": "fas fa-scale-balanced"
     },
     "metrics": [],
@@ -196,18 +196,18 @@
     "relatedPublications": [],
     "detailStatus": "ready",
     "seo": {
-      "description": "JuktiLLM: an ongoing curriculum-trained small language model for mathematical reasoning in Bangla, a low-resource morphologically rich language.",
+      "description": "An ongoing curriculum-trained small language model for mathematical reasoning in Bangla, a low-resource morphologically rich language.",
       "ogImage": null
     },
     "badge": "Research",
     "sections": [
       {
         "title": "The idea",
-        "body": "Large language models reason well in English but fall sharply behind in Bangla — a language spoken by 230M+ people yet largely missing from the mathematical-reasoning literature. JuktiLLM (Bangla for “reasoning”) is an ongoing research project that trains a compact model to reason mathematically in Bangla through a staged curriculum, where each stage adds a progressively finer-grained learning signal. The goal is competitive Bangla math reasoning without frontier-scale model capacity."
+        "body": "Large language models reason well in English but fall sharply behind in Bangla — a language spoken by 230M+ people yet largely missing from the mathematical-reasoning literature. This is an ongoing research project that trains a compact model to reason mathematically in Bangla through a staged curriculum, where each stage adds a progressively finer-grained learning signal. The goal is competitive Bangla math reasoning without frontier-scale model capacity."
       },
       {
         "title": "Why it's hard",
-        "body": "Bangla's agglutinative morphology makes correct reasoning traces structurally longer, which quietly confounds the reward signals standard reinforcement-learning methods rely on. Jukti's approach is designed to separate “was the answer correct” from “was it wordy,” so valid Bangla reasoning isn't penalised for length. (Method details are held back while the work is under submission.)"
+        "body": "Bangla's agglutinative morphology makes correct reasoning traces structurally longer, which quietly confounds the reward signals standard reinforcement-learning methods rely on. The approach is designed to separate “was the answer correct” from “was it wordy,” so valid Bangla reasoning isn't penalised for length. (Method details are held back while the work is under submission.)"
       }
     ],
     "skills": [
@@ -247,7 +247,7 @@
       "icon": "fas fa-vector-square",
       "label": "Paraphrase Geometry",
       "src": "assets/images/project-cards/paraphrase-geometry.jpg",
-      "alt": "Paraphrase-geometry embedding refinement (CSP)"
+      "alt": "Paraphrase-geometry embedding refinement"
     },
     "metrics": [],
     "links": {
@@ -260,16 +260,15 @@
     },
     "relatedPublications": [],
     "detailStatus": "ready",
-    "_note": "Owner listed genai-llm as 'HARP, CSP and JuktiLLM'. 'CSP' is interpreted here as this Paraphrase-Geometry embedding project. Correct this slug/title if the interpretation is wrong.",
     "seo": {
-      "description": "CSP: an ongoing training-free, model-agnostic method that refines sentence embeddings at inference time using paraphrase geometry.",
+      "description": "An ongoing training-free, model-agnostic method that refines sentence embeddings at inference time using paraphrase geometry.",
       "ogImage": null
     },
     "badge": "Research",
     "sections": [
       {
         "title": "The idea",
-        "body": "Sentence embeddings power semantic search, retrieval-augmented generation and clustering — but even strong encoders often confuse surface-form overlap with true meaning. This ongoing project (CSP — Semantic Constraint-Specific Projections) treats a sentence's paraphrases as samples of a local, meaning-preserving manifold, and uses the geometry those paraphrases trace out to refine the embedding."
+        "body": "Sentence embeddings power semantic search, retrieval-augmented generation and clustering — but even strong encoders often confuse surface-form overlap with true meaning. This ongoing project treats a sentence's paraphrases as samples of a local, meaning-preserving manifold, and uses the geometry those paraphrases trace out to refine the embedding."
       },
       {
         "title": "Why it matters",

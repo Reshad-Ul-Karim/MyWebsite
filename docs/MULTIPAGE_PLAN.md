@@ -8,7 +8,7 @@
 
 ## 1. Recommendation
 
-**Adopt the incremental-hybrid architecture with two grafts from static-multifile.** Concretely: **hand-authored static HTML detail pages** (one real `.html` per project and publication, so social scrapers and Google see genuine per-page `<title>`/OpenGraph/canonical/JSON-LD — the single property that disqualifies any client-rendered detail page), **JSON-driven index pages** (`projects/index.html`, `publications/index.html` render their domain-grouped grids from `data/*.json` at runtime with a `<noscript>` static-link fallback for crawlers), a **blocking `site-shell.js` chrome injector** (nav + footer + the three modal shells + cursor, injected from one file so the ~17 detail pages carry only their unique content), and a **`detailStatus` stub-gate** so the 6 projects with dead `href="#"` links and LUMENAA's profile-only GitHub never ship a dead-CTA page or a sitemap entry. This wins because it is the only option that satisfies **both** hard constraints simultaneously: it stays **pure static on deploy-from-branch** (zero CI, no `package.json`, nothing can break a deploy — a bad HTML file just serves as bad HTML, exactly like today's `game.html` precedent), **and** it delivers real shareable per-item pages. We explicitly **reject** the Eleventy/GitHub-Actions SSG (violates the no-build constraint, switches Pages serving mode, introduces a deploy-blocking failure and a citations-workflow reconciliation — overkill for ~17 items) and **reject** client-rendered detail pages (JS-blind scrapers would show one generic card for every shared paper link). The same `data/*.json` we design now is exactly the front-matter an Eleventy build would later consume, so if the catalog ever blows past ~25–30 items the migration is incremental, not a rewrite.
+**Adopt the incremental-hybrid architecture with two grafts from static-multifile.** Concretely: **hand-authored static HTML detail pages** (one real `.html` per project and publication, so social scrapers and Google see genuine per-page `<title>`/OpenGraph/canonical/JSON-LD — the single property that disqualifies any client-rendered detail page), **JSON-driven index pages** (`projects/index.html`, `publications/index.html` render their domain-grouped grids from `data/*.json` at runtime with a `<noscript>` static-link fallback for crawlers), a **blocking `site-shell.js` chrome injector** (nav + footer + the three modal shells + cursor, injected from one file so the ~17 detail pages carry only their unique content), and a **`detailStatus` stub-gate** so the 6 projects with dead `href="#"` links and the assistive vision agent's profile-only GitHub never ship a dead-CTA page or a sitemap entry. This wins because it is the only option that satisfies **both** hard constraints simultaneously: it stays **pure static on deploy-from-branch** (zero CI, no `package.json`, nothing can break a deploy — a bad HTML file just serves as bad HTML, exactly like today's `game.html` precedent), **and** it delivers real shareable per-item pages. We explicitly **reject** the Eleventy/GitHub-Actions SSG (violates the no-build constraint, switches Pages serving mode, introduces a deploy-blocking failure and a citations-workflow reconciliation — overkill for ~17 items) and **reject** client-rendered detail pages (JS-blind scrapers would show one generic card for every shared paper link). The same `data/*.json` we design now is exactly the front-matter an Eleventy build would later consume, so if the catalog ever blows past ~25–30 items the migration is incremental, not a rewrite.
 
 ---
 
@@ -70,7 +70,7 @@ MyWebsite/                                   https://reshadulkarim.me/
 <!-- #research section header -->
 <a class="btn-outline" href="publications/">All publications →</a>
 <!-- per-card "Details" affordance, inside an existing .project-links / publication actions -->
-<a class="project-link" href="projects/lumenaa.html" aria-label="LUMENAA case study">
+<a class="project-link" href="projects/lumenaa.html" aria-label="Assistive vision agent case study">
   <i class="fas fa-arrow-up-right-from-square"></i>
 </a>
 ```
@@ -109,15 +109,15 @@ Three files under `data/`. `taxonomy.json` defines the domain vocabulary + order
 }
 ```
 
-### 3b. `data/projects.json` — schema + real LUMENAA object
+### 3b. `data/projects.json` — schema + a real project object
 
 `domains[0]` is the **primary** (grouping) domain; the rest are secondary (feed cross-cutting filter chips). `media` has exactly the two variants the DOM uses (`icon` | `youtube`). `detailStatus` gates whether a detail page/link/sitemap entry ships.
 
 ```json
 {
   "slug": "lumenaa",
-  "title": "LUMENAA — Edge-Native Assistive Vision Agent",
-  "shortTitle": "LUMENAA",
+  "title": "Edge-Native Assistive Vision Agent",
+  "shortTitle": "Assistive Vision Agent",
   "status": "ongoing",                          // "ongoing" | "completed"
   "flagship": true,
   "weight": 100,                                // higher = earlier within its domain group
@@ -126,21 +126,21 @@ Three files under `data/`. `taxonomy.json` defines the domain vocabulary + order
   "description": "An edge-native multimodal assistive vision agent that runs perception on-device and only escalates to the cloud when needed, achieving a <strong>95%+ reduction in cloud vision API calls</strong> while preserving responsiveness and privacy for visually impaired users.",
   "techTags": ["Edge Inference", "Multimodal", "VLM"],
   "features": ["95%+ Cloud-Call Reduction", "On-Device Perception", "Multimodal Fusion"],
-  "media": { "type": "icon", "icon": "fas fa-lightbulb", "label": "LUMENAA" },
+  "media": { "type": "icon", "icon": "fas fa-lightbulb", "label": "Assistive Vision Agent" },
   "metrics": [
     { "value": 95, "suffix": "%+", "label": "Cloud-Call Reduction" },
     { "value": 30, "suffix": "%",  "label": "Faster Inference" }
   ],
   "links": { "github": null, "youtube": null, "paper": null, "pdf": null, "poster": null, "live": null },
   "relatedPublications": [],
-  "detailStatus": "stub",                       // "ready" | "stub"  (LUMENAA github is profile-only → stub until real repo/links exist)
-  "seo": { "description": "LUMENAA case study: edge-native assistive vision agent cutting cloud vision API calls 95%+.", "ogImage": null }
+  "detailStatus": "stub",                       // "ready" | "stub"  (the assistive vision agent's github is profile-only → stub until real repo/links exist)
+  "seo": { "description": "Edge-native assistive vision agent cutting cloud vision API calls 95%+.", "ogImage": null }
 }
 ```
 
 - **`media` variants:** `{ "type": "icon", "icon": "fas fa-brain", "label": "Sleep AI Research" }` **or** `{ "type": "youtube", "videoId": "vdP5qrJQqGc", "startTime": 131, "alt": "Mars Rover demo" }`.
 - **`links` kinds** map 1:1 to the icons already in `.project-links`: `github` (`fab fa-github`), `youtube` (modal via `data-video-id`), `pdf` (`pdf-viewer-btn` + `data-pdf`/`data-title`), `paper` (DOI, `fas fa-file-alt`), `poster` (`fas fa-image`), `live` (`fas fa-external-link-alt`). A `null` value omits that action. **No `"#"` placeholders — a missing URL is `null`, which renders a disabled "coming soon" state, never a dead link.**
-- **`detailStatus: "stub"`** → the card shows a "Coming soon" badge, links to no detail page, and is excluded from `sitemap.xml`. This is the data-integrity gate for the 6 dead-link projects + LUMENAA.
+- **`detailStatus: "stub"`** → the card shows a "Coming soon" badge, links to no detail page, and is excluded from `sitemap.xml`. This is the data-integrity gate for the 6 dead-link projects + the assistive vision agent.
 
 ### 3c. `data/publications.json` — schema + real IEEE Access object
 
@@ -181,7 +181,7 @@ The two ICEACE sleep papers carry `media.videoId` (`nAP8e5IfGZI`, `FfUJttHAkyk`)
 1. **Sections** = domains ordered by `taxonomy.order`.
 2. A project renders **once**, under its **primary** domain (`domains[0]`) — no duplicate cards across sections.
 3. **Within a section:** `flagship` desc → `weight` desc → `date` desc → `title` A→Z.
-4. **Filter bar** ("All" + one chip per domain): clicking a chip flattens the sections and shows **every** project whose full `domains[]` **includes** that id — so LUMENAA surfaces under *Agentic*, *Healthcare*, **and** *Edge*. One `domains[]` field powers both the grouped default view and the cross-cutting filtered view. Cards carry `data-domains="agentic-multimodal healthcare-ai robotics-edge"` for the filter.
+4. **Filter bar** ("All" + one chip per domain): clicking a chip flattens the sections and shows **every** project whose full `domains[]` **includes** that id — so the assistive vision agent surfaces under *Agentic*, *Healthcare*, **and** *Edge*. One `domains[]` field powers both the grouped default view and the cross-cutting filtered view. Cards carry `data-domains="agentic-multimodal healthcare-ai robotics-edge"` for the filter.
 
 **Primary-domain assignment (each project appears once; owner may re-slot — see §8):**
 
@@ -347,7 +347,7 @@ Sequenced so the live site never breaks; each phase is independently shippable. 
 | **0 — Infra & fixes** | `.nojekyll`, `404.html`, `robots.txt`, favicon, per-page `<head>` template; **fix `index.html:14` og:url** + add self-canonical; **retrofit the pre-paint theme/accent bootstrap** as the first `<head>` element of `index.html`; add `scroll-margin-top:5rem` to sections. | **S** | Pure additions + 3 tiny non-destructive `index.html` edits. Fixes the existing dark/accent flash. Ship first. |
 | **1 — Data & shell** | `data/taxonomy.json` + author `projects.json` (13) + `publications.json` (4) from the DOM; build `site-shell.js` (nav/footer/modals/cursor injector) + prove it on **one** detail page end-to-end. | **M** | The transcription is mechanical; the *work* is sourcing real GitHub URLs for the 6 stubs + full author lists from IEEE Xplore. `site-shell.js` is the highest-leverage file — validate init timing against `script.js` here. |
 | **2 — Index pages** | `render.js` (grouping + filter + own reveal/tilt) + ~20 lines CSS; `projects/index.html` + `publications/index.html` skeletons (nav + empty containers + `<noscript>` static links); add the two "Browse →" links + per-card "Details" links on `index.html`. | **M** | Index pages go live pointing only at `detailStatus:"ready"` items; stubs render "coming soon". |
-| **3 — Flagship detail pages** | `templates/*.template.html` scaffolds, then the **4 flagships** (LUMENAA, Mars Rover, Service Robot, WeHeal) — elaborated prose, cross-links, per-page OG/canonical/JSON-LD; add their `<url>` lines to `sitemap.xml`. | **L** | Template once, then ~S each; the elaborated *writing* is the real cost. Only pages whose links are real go `"ready"`. |
+| **3 — Flagship detail pages** | `templates/*.template.html` scaffolds, then the **4 flagships** (the assistive vision agent, Mars Rover, Service Robot, WeHeal) — elaborated prose, cross-links, per-page OG/canonical/JSON-LD; add their `<url>` lines to `sitemap.xml`. | **L** | Template once, then ~S each; the elaborated *writing* is the real cost. Only pages whose links are real go `"ready"`. |
 | **4 — Accrete the rest + optional generator** | Remaining detail pages as their links firm up; **optionally** add `scripts/generate.js` (local Node — run on machine, commit output; **no CI**) to generate detail pages + sitemap from the same JSON once hand-maintenance exceeds ~15–20 pages. | **M–L** | Deploy-from-branch untouched; the generator is a local convenience, not a build. Graduate to Eleventy only if the catalog blows past ~25–30. |
 
 **Ship first:** Phase 0 (half a day, immediate SEO/flash wins, zero risk), then Phase 1+2 to get the two live domain-grouped index pages, then Phase 3 flagships. Detail pages accrete afterward without blocking anything.
@@ -358,7 +358,7 @@ Sequenced so the live site never breaks; each phase is independently shippable. 
 
 **Risks & mitigations**
 
-- **Dead `href="#"` links becoming public (highest).** 6 projects + LUMENAA's profile-only GitHub. → **`detailStatus:"stub"` gate**: never ship or sitemap a page whose primary CTA is dead; stubs show "coming soon". Resolve the URL before promoting to `"ready"`.
+- **Dead `href="#"` links becoming public (highest).** 6 projects + the assistive vision agent's profile-only GitHub. → **`detailStatus:"stub"` gate**: never ship or sitemap a page whose primary CTA is dead; stubs show "coming soon". Resolve the URL before promoting to `"ready"`.
 - **Shell init timing.** If `site-shell.js` is ever deferred or moved after `script.js`, nav/cursor/modals silently break. → Blocking-before-`script.js` contract documented in the file header; verify on the first detail page.
 - **Index boot-vs-async-inject race.** `projects-motion.js`/`reveal-motion.js` scan at boot before `render.js` injects. → `render.js` owns its own reveal/tilt/filter; don't depend on the boot-time scan.
 - **No-JS index pages.** → `<noscript>` static links + `sitemap.xml` cover crawlers; detail pages are static HTML (immune).
@@ -368,6 +368,6 @@ Sequenced so the live site never breaks; each phase is independently shippable. 
 
 **Open decisions for the owner to confirm**
 
-1. **Stub links.** For the 6 placeholder projects + LUMENAA, provide real GitHub/live/PDF URLs now, or ship them as index-only "coming soon" cards (no detail page) until the links exist? (Recommendation: ship "coming soon"; add detail pages as links land.)
+1. **Stub links.** For the 6 placeholder projects + the assistive vision agent, provide real GitHub/live/PDF URLs now, or ship them as index-only "coming soon" cards (no detail page) until the links exist? (Recommendation: ship "coming soon"; add detail pages as links land.)
 2. **Primary-domain slotting.** Confirm the §3d assignments — the debatable ones are DRISTEE (agentic-multimodal vs computer-vision), ViT-Autism (computer-vision vs healthcare-ai), and whether WeHeal's card lives under Healthcare or Software Systems. Each project still appears under every one of its `domains[]` via the filter chips; only its default section is at stake.
 3. **Per-item share images.** Accept the `profile picture.jpg` fallback OG card for now, or budget ~1200×630 branded cards per item under `assets/images/project-cards/<slug>-og.jpg`? (Recommendation: fallback now, add real cards for the 4 flagships in Phase 3.)
