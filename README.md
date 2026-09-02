@@ -103,7 +103,7 @@
 **🎓 BSc. Computer Science and Engineering**  
 📍 BRAC University (2022 - Present)  
 📊 **CGPA: 3.89/4.00**  
-🏆 Dean's List & Vice Chancellor's List (2023-2024)
+🏆 Highest Distinction · 5× Vice Chancellor's List · 5× Dean's List
 
 </td>
 <td>
@@ -362,7 +362,9 @@
 
 | 🏅 Award | 🏛️ Institution | 📅 Year |
 |----------|----------------|----------|
-| 🎓 **Dean's List & Vice Chancellor's List** | BRAC University | 2023-2024 |
+| 🎓 **Highest Distinction** | BRAC University | BSc. CSE |
+| 🌟 **5× Vice Chancellor's List** | BRAC University | 2023-Present |
+| 🏆 **5× Dean's List** | BRAC University | 2023-Present |
 | 🥉 **Second Runner Up - Robosoccer** | Robotics Club BRACU | 2024 |
 | 🏆 **Semi Finalist - Hult Prize** | BRAC University | 2023 |
 | 🥈 **First Runner Up - Project Display** | Science Club | 2016 |

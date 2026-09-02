@@ -2267,10 +2267,12 @@ function initEducationCardInteractions() {
             const badgeText = badge.textContent.trim();
             let message = '';
             
-            if (badgeText.includes("Dean's List")) {
-                message = '🏆 Recognized for outstanding academic achievement - Dean\'s List';
+            if (badgeText.includes('Highest Distinction')) {
+                message = '🎓 Graduating with Highest Distinction - the top tier of academic standing';
+            } else if (badgeText.includes("Dean's List")) {
+                message = '🏆 Dean\'s List in 5 semesters for outstanding academic achievement';
             } else if (badgeText.includes("Vice Chancellor's List")) {
-                message = '🌟 Highest academic honor - Vice Chancellor\'s List recipient';
+                message = '🌟 Vice Chancellor\'s List in 5 semesters - the highest academic honor';
             }
             
             if (message) {
